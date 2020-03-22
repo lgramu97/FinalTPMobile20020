@@ -13,6 +13,10 @@ public class ConfigOkHttp {
     private OkHttpClient client;
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
+    public ConfigOkHttp(OkHttpClient client) {
+        this.client = client;
+    }
+
     public void POST(String url, JSONObject json){
         client = new OkHttpClient();
         OkHttpClient client = new OkHttpClient();
@@ -59,5 +63,13 @@ public class ConfigOkHttp {
                 Log.e(TAG, mMessage);
             }
         });
+    }
+
+    public Call GET(String url, Callback callback){
+        Request request = new Request.Builder().url(url).build();
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+        return call;
+
     }
 }
