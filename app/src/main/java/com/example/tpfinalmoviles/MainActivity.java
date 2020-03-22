@@ -1,12 +1,17 @@
 package com.example.tpfinalmoviles;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,14 +24,63 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class MainActivity extends AppCompatActivity {
+import static android.content.ContentValues.TAG;
+import static com.example.tpfinalmoviles.R.id.idAgregarVaca;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
     private TextView mTextViewResult;
-    private final OkHttpClient client = new OkHttpClient();
+    private  OkHttpClient client; //= new OkHttpClient();
+    private Button botonTest;
+    public ConfigOkHttp config;
+    private CardView idAgregarVaca;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        idAgregarVaca = (CardView) findViewById(R.id.idAgregarVaca);
+        idAgregarVaca.setOnClickListener(this);
+       /* botonTest = (Button) findViewById(R.id.idButtonTest);
+        final String url =  "http://10.0.2.2:8080/api/cow/1/";
+        botonTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                client = new OkHttpClient();
+                config = new ConfigOkHttp(client);
+                System.out.println("primer");
+                Callback c = new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                System.out.println("error2");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onResponse(Call call, final Response response) throws IOException {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    String mMessage = response.body().string();
+                                    System.out.println("a " + mMessage);
+                                } catch (IOException e) {
+                                    System.out.println("error");
+                                }
+                            }
+                        });
+                    }
+                };
+                config.get(url,c);
+                System.out.println("fin");
+            }
+
+        });
+        System.out.println("fin2");
+        */
 
         // HACER ESTO https://www.youtube.com/watch?v=d6CfaWW7G5Q JE
         /*
@@ -79,6 +133,52 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    /*
+    private void getWS(){
+        String url =  "http://10.0.2.2:8080/api/cow/1/";
+      //  url = "https://www.googleapis.com/books/v1/volumes?";
+        Request request = new Request.Builder().url(url).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("error2");
+                    }
+                });
+            }
 
+            @Override
+            public void onResponse(Call call, final Response response) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            String mMessage = response.body().string();
+                            System.out.println("a " + mMessage);
+                        } catch (IOException e) {
+                            System.out.println("error");
+                        }
+                    }});
+
+            }});
+
+        }*/
+
+    @Override
+    public void onClick(View v) {
+        Intent i;
+        System.out.println("aaa");
+        switch (v.getId()){
+            case R.id.idAgregarVaca:
+                i = new Intent(this, AgregarVaca.class);
+                startActivity(i);
+                System.out.println("aaa");
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + v.getId());
+        }
+    }
 }
 
