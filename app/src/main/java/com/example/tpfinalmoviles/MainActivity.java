@@ -25,6 +25,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 import static android.content.ContentValues.TAG;
+import static com.example.tpfinalmoviles.R.id.idAgregarRodeo;
 import static com.example.tpfinalmoviles.R.id.idAgregarVaca;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
@@ -32,14 +33,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private  OkHttpClient client; //= new OkHttpClient();
     private Button botonTest;
     public ConfigOkHttp config;
-    private CardView idAgregarVaca;
+    private CardView idAgregarVaca, idAgregarRodeo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         idAgregarVaca = (CardView) findViewById(R.id.idAgregarVaca);
+        idAgregarRodeo = (CardView) findViewById(R.id.idAgregarRodeo);
         idAgregarVaca.setOnClickListener(this);
+        idAgregarRodeo.setOnClickListener(this);
        /* botonTest = (Button) findViewById(R.id.idButtonTest);
         final String url =  "http://10.0.2.2:8080/api/cow/1/";
         botonTest.setOnClickListener(new View.OnClickListener() {
@@ -175,6 +178,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 i = new Intent(this, AgregarVaca.class);
                 startActivity(i);
                 System.out.println("aaa");
+                break;
+            case R.id.idAgregarRodeo:
+                i = new Intent(this, AgregarRodeo.class);
+                startActivity(i);
+                System.out.println("riBBBer");
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
