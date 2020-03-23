@@ -1,105 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="20dp"
+    android:background="@color/grey"
     tools:context=".AgregarVaca">
 
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cantidad de Partos:" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:layout_marginTop="20dp"
+            android:ems="10"
             android:id="@+id/idCantidadDePartos"
-            android:layout_width="271dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:hint="Cantidad De Partos"
+            android:background="@color/white"
+            android:shape="rectangle"
+            android:padding="10dp"
+            />
+
+        <EditText
+            android:id="@+id/idElectronico"
+            android:layout_width="364dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="85dp"
+            android:background="@color/white"
             android:ems="10"
+            android:hint="ID Electronico"
             android:inputType="textPersonName"
-            android:text="Name" />
-
-        <TextView
-            android:id="@+id/IDe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ID Electronico" />
+            android:padding="10dp"
+            android:shape="rectangle" />
 
         <EditText
-            android:id="@+id/iDElectronico"
-            android:layout_width="match_parent"
+            android:id="@+id/idFechaNacimiento"
+            android:layout_width="364dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="150dp"
+            android:background="@color/white"
             android:ems="10"
+            android:hint="Fecha De Nacimiento"
             android:inputType="textPersonName"
-            android:text="Name" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="266dp"
-            android:layout_height="wrap_content"
-            android:text="Fecha de Nacimiento" />
+            android:padding="10dp"
+            android:shape="rectangle" />
 
         <EditText
-            android:id="@+id/idFechaNac"
-            android:layout_width="275dp"
+            android:id="@+id/idPeso"
+            android:layout_width="364dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="215dp"
+            android:background="@color/white"
             android:ems="10"
-            android:inputType="date" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="273dp"
-            android:layout_height="wrap_content"
-            android:text="Peso" />
+            android:hint="Peso"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:shape="rectangle" />
 
         <EditText
-            android:id="@+id/editText5"
-            android:layout_width="match_parent"
+            android:id="@+id/idUltFechaParto"
+            android:layout_width="364dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="285dp"
+            android:background="@color/white"
             android:ems="10"
-            android:inputType="numberDecimal" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ultima Fecha de Parto" />
+            android:hint="Ultima Fecha de Parto"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:shape="rectangle" />
 
         <EditText
-            android:id="@+id/editText6"
-            android:layout_width="match_parent"
+            android:id="@+id/idHerd"
+            android:layout_width="364dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="350dp"
+            android:background="@color/white"
             android:ems="10"
-            android:inputType="date" />
+            android:hint="Id de Manada"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:shape="rectangle" />
 
-        <TextView
-            android:id="@+id/textView7"
+        <Button
+            android:id="@+id/idCargarVaca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etLocalidad"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="450dp"
+            android:padding="10dp"
+            android:text="Cargar Vaca"
+            android:textColor="@color/green" />
+
+        <Button
+            android:id="@+id/idbBackVaca"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Id Rodeo" />
+            android:layout_below="@+id/bCargar"
+            android:layout_alignEnd="@+id/bCargar"
+            android:layout_alignRight="@+id/bCargar"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="500dp"
+            android:padding="10dp"
+            android:text="Regresar"
+            android:textColor="@color/red" />
 
-        <EditText
-            android:id="@+id/editText7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="number" />
 
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+</ScrollView>

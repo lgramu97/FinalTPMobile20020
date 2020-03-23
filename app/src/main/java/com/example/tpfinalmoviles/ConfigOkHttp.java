@@ -18,6 +18,10 @@ public class ConfigOkHttp {
         this.client = client;
     }
 
+    public ConfigOkHttp(){
+
+    }
+
     public void post(String url, JSONObject json,Callback callback){
         client = new OkHttpClient();
         OkHttpClient client = new OkHttpClient();
