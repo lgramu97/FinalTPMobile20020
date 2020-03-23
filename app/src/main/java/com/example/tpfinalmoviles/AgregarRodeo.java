@@ -2,16 +2,20 @@ package com.example.tpfinalmoviles;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.TextView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import okhttp3.OkHttpClient;
 
 public class AgregarRodeo extends AppCompatActivity {
-
+    private TextView etLocalidad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,11 +27,15 @@ public class AgregarRodeo extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             ConfigOkHttp peticion = new ConfigOkHttp(new OkHttpClient());
-
+            etLocalidad = findViewById(R.id.etLocalidad);
             JSONObject json = new JSONObject();
-           // json.put("location", loc.text.toString());
+            try {
+                json.put("location", etLocalidad.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-            //val conexion = "http://"+getSharedPreferences(ConfiguracionUrlActivity.PREFS_FILENAME, Context.MODE_PRIVATE).getString("address", "")+"/api/herd"
+           // String conexion = "http://"+getSharedPreferences(ConfiguracionUrlActivity.PREFS_FILENAME, Context.MODE_PRIVATE).getString("address", "")+"/api/herd";
             return null;
         };
 
