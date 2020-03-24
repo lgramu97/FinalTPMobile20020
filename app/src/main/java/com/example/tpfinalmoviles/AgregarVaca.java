@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 import org.jetbrains.annotations.NotNull;
@@ -16,18 +17,20 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 
 public class AgregarVaca extends AppCompatActivity {
     private Tarea tareaVaca;
     private Button btnAgregarVaca;
+    private Button btnRegresarVaca;
+    private TextView cantidadPartos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_vaca);
         btnAgregarVaca = (Button) findViewById(R.id.idCargarVaca);
+        btnRegresarVaca = (Button) findViewById(R.id.idbBackVaca);
         btnAgregarVaca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,13 +39,19 @@ public class AgregarVaca extends AppCompatActivity {
                 tareaVaca.execute();
             }
         });
+        btnRegresarVaca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
     private class Tarea extends AsyncTask<Void,Void,Void>{
 
         @Override
-        protected Void doInBackground(Void... voids) {
-            String url =  "http://10.0.2.2:8080/api/cow/";
+        protected Void doInBackground(Void... voids){
+            String url = getSharedPreferences(ConfigServer.URL_DETAILS,MODE_PRIVATE).getString("url","")+"api/cow/";
             ConfigOkHttp peticion = new ConfigOkHttp();
             JSONObject jsonVaca = new JSONObject();
             try {
@@ -65,7 +74,7 @@ public class AgregarVaca extends AppCompatActivity {
                 @Override
                 public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
                     String mMessage = response.body().string();
-                    System.out.println("a " + mMessage);
+                    System.out.println(mMessage);
                 }
             };
             peticion.post(url,jsonVaca,callback);
