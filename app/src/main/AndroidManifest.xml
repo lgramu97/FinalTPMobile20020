@@ -10,7 +10,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".AgregarVacaAlerta"></activity>
+        <activity android:name=".AgregarRodeoAlerta" />
         <activity android:name=".ConfigServer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,9 +23,7 @@
         </activity>
         <activity android:name=".AgregarRodeo" />
         <activity android:name=".AgregarVaca" />
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

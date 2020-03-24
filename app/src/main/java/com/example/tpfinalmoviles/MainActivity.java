@@ -5,6 +5,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private  OkHttpClient client; //= new OkHttpClient();
     private Button botonTest;
     public ConfigOkHttp config;
-    private CardView idAgregarVaca, idAgregarRodeo;
+    private CardView idAgregarVaca, idAgregarRodeo, idAgregarAlertaVaca, idAgregarAlertaRodeo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +42,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         idAgregarVaca = (CardView) findViewById(R.id.idAgregarVaca);
         idAgregarRodeo = (CardView) findViewById(R.id.idAgregarRodeo);
+        idAgregarAlertaRodeo = (CardView) findViewById(R.id.idAgregarAlertaRodeo);
+        idAgregarAlertaVaca = (CardView) findViewById(R.id.idAgregarAlertaVaca);
+
         idAgregarVaca.setOnClickListener(this);
         idAgregarRodeo.setOnClickListener(this);
+        idAgregarAlertaRodeo.setOnClickListener(this);
+        idAgregarAlertaVaca.setOnClickListener(this);
+
         String url = getSharedPreferences(ConfigServer.URL_DETAILS,MODE_PRIVATE).getString("url","");
         System.out.println("DALEEE BOCAAAAA" + url);
        /* botonTest = (Button) findViewById(R.id.idButtonTest);
@@ -185,6 +192,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 i = new Intent(this, AgregarRodeo.class);
                 startActivity(i);
                 System.out.println("riBBBer");
+                break;
+            case R.id.idAgregarAlertaRodeo:
+                i = new Intent(this, AgregarRodeoAlerta.class);
+                startActivity(i);
+                System.out.println("bbbbb");
+                break;
+            case R.id.idAgregarAlertaVaca:
+                i = new Intent(this, AgregarVacaAlerta.class);
+                startActivity(i);
+                System.out.println("jeropaa");
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
