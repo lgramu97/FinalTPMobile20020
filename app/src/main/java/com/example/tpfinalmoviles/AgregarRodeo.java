@@ -30,7 +30,7 @@ import okhttp3.Response;
 
 public class AgregarRodeo extends AppCompatActivity {
     private static final String ERROR_POST = "Error al cargar los datos.";
-    private static final String CORRECT_POST = "Datos almacenados correctamete.:";
+    private static final String CORRECT_POST = "Datos almacennados correctamete.:";
 
     private TextView etLocalidad;
     private Button bCargar, bBack;
@@ -89,7 +89,7 @@ public class AgregarRodeo extends AppCompatActivity {
             ConfigOkHttp peticion = new ConfigOkHttp();
             JSONObject jsonRodeo = new JSONObject();
             try {
-                jsonRodeo.put("location", sLocalidad);
+                jsonRodeo.put("localidad", sLocalidad);
 //                Toast.makeText(AgregarRodeo.this,CORRECT_POST,Toast.LENGTH_SHORT).show();
             } catch (JSONException e) {
   //              Toast.makeText(AgregarRodeo.this,ERROR_POST,Toast.LENGTH_SHORT).show();

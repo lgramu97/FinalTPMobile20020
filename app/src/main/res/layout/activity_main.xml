@@ -51,7 +51,8 @@
                         android:layout_width="128dp"
                         android:layout_height="64dp"
                         android:src="@drawable/cow"
-                        android:layout_marginTop="24dp">
+                        android:layout_marginTop="24dp"
+                        android:background="@color/white">
                     </ImageView>
                     
                     <TextView
@@ -89,7 +90,8 @@
                         android:layout_width="128dp"
                         android:layout_height="64dp"
                         android:src="@drawable/herd"
-                        android:layout_marginTop="24dp">
+                        android:layout_marginTop="24dp"
+                        android:background="@color/white">
                     </ImageView>
 
                     <TextView
@@ -113,7 +115,8 @@
                 app:cardCornerRadius="12dp"
                 app:cardElevation="5dp"
                 app:cardBackgroundColor="@color/grey"
-                android:layout_margin="10dp">
+                android:layout_margin="10dp"
+                android:id="@+id/idAgregarAlertaVaca">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -122,16 +125,17 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/cow"
-                        android:layout_marginTop="24dp">
+                        android:layout_width="128dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/cow_alert2"
+                        android:layout_marginTop="24dp"
+                        android:background="@color/white">
                     </ImageView>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ADD COW"
+                        android:text="ADD COW ALERT"
                         android:fontFamily="@font/googlesans_bold"
                         android:textSize="16sp"
                         android:textColor="@color/white"
@@ -149,7 +153,8 @@
                 app:cardCornerRadius="12dp"
                 app:cardElevation="5dp"
                 app:cardBackgroundColor="@color/grey"
-                android:layout_margin="10dp">
+                android:layout_margin="10dp"
+                android:id="@+id/idAgregarAlertaRodeo">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -158,16 +163,17 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/cow"
-                        android:layout_marginTop="24dp">
+                        android:layout_width="128dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/herd_alert"
+                        android:layout_marginTop="24dp"
+                        android:background="@color/white">
                     </ImageView>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ADD COW"
+                        android:text="ADD HERD ALERT"
                         android:fontFamily="@font/googlesans_bold"
                         android:textSize="16sp"
                         android:textColor="@color/white"
