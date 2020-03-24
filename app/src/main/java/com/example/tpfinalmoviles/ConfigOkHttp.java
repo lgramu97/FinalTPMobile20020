@@ -27,13 +27,13 @@ public class ConfigOkHttp {
         OkHttpClient client = new OkHttpClient();
 
         RequestBody body = RequestBody.create(json.toString(), JSON);
-
+        System.out.println("URL OKHTTP:    " + url);
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
                 .build();
+        System.out.println(request.url());
+        System.out.println(request.body().toString());
 
         client.newCall(request).enqueue(callback);
 

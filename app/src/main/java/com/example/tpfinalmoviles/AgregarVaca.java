@@ -59,7 +59,7 @@ public class AgregarVaca extends AppCompatActivity {
             Callback callback = new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    System.out.println("error");
+                    System.out.println("error " + call.toString());
                 }
 
                 @Override
