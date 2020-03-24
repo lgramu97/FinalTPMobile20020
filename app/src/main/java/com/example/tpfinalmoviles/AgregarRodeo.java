@@ -30,14 +30,15 @@ import okhttp3.Response;
 
 public class AgregarRodeo extends AppCompatActivity {
     private static final String ERROR_POST = "Error al cargar los datos.";
-    private static final String CORRECT_POST = "Datos almacennados correctamete.:";
+    private static final String CORRECT_POST = "Datos almacenados correctamente.";
 
-    private TextView etLocalidad;
+    private TextView etLocalidad, etInfo;
     private Button bCargar, bBack;
     private Tarea tareaRodeo;
     private String sLocalidad;
 
-   @Override
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_rodeo);
@@ -45,33 +46,35 @@ public class AgregarRodeo extends AppCompatActivity {
         bCargar.setEnabled(false);
         bBack = (Button) findViewById(R.id.bBack);
         etLocalidad = findViewById(R.id.etLocalidad);
+        etInfo = findViewById(R.id.etInfo);
+        etLocalidad.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void afterTextChanged(Editable s) {}
 
-       etLocalidad.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-           @Override
-           public void afterTextChanged(Editable s) {}
-
-           @Override
-           public void onTextChanged(CharSequence charSequence, int i, int before, int count) {
-               if (count>0){ //count es cantidad de caracteres que tiene
-                   bCargar.setEnabled(true);
-                   sLocalidad = etLocalidad.getText().toString();
-               }else{
-                   bCargar.setEnabled(false);
-               }
-           }
-       });
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int before, int count) {
+                if (count>0){ //count es cantidad de caracteres que tiene
+                    bCargar.setEnabled(true);
+                    sLocalidad = etLocalidad.getText().toString();
+                }else{
+                    bCargar.setEnabled(false);
+                }
+            }
+        });
 
         bCargar.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               System.out.println("Riber gay");
-               bCargar.setEnabled(true);
-               tareaRodeo = new Tarea();
-               tareaRodeo.execute();
-           }
-       });
+            @Override
+            public void onClick(View v) {
+                System.out.println("Riber gay");
+                bCargar.setText("Enviando Datos");
+                bCargar.setEnabled(false);
+                tareaRodeo = new Tarea();
+                tareaRodeo.execute();
+
+            }
+        });
         bBack.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -79,7 +82,7 @@ public class AgregarRodeo extends AppCompatActivity {
             }
         });
 
-   }
+    }
 
     private class Tarea extends AsyncTask<Void,Void,Void>{
 
@@ -87,27 +90,46 @@ public class AgregarRodeo extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             String url = getSharedPreferences(ConfigServer.URL_DETAILS,MODE_PRIVATE).getString("url","")+"api/herd/";
             ConfigOkHttp peticion = new ConfigOkHttp();
-            JSONObject jsonRodeo = new JSONObject();
+            final JSONObject jsonRodeo = new JSONObject();
             try {
-                jsonRodeo.put("localidad", sLocalidad);
-//                Toast.makeText(AgregarRodeo.this,CORRECT_POST,Toast.LENGTH_SHORT).show();
+                jsonRodeo.put("location", sLocalidad);
             } catch (JSONException e) {
-  //              Toast.makeText(AgregarRodeo.this,ERROR_POST,Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
 
-            Callback callback = new Callback() {
+            final Callback callback = new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
                     System.out.println("error");
                     ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            bCargar.setText("Cargar Rodeo");
+                            bCargar.setEnabled(true);
+                        }
+                    });
                 }
 
                 @Override
                 public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
-                    String mMessage = response.body().string();
+                    final String mMessage = response.body().string();
                     System.out.println("a " + mMessage);
                     ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            bCargar.setText("Cargar Rodeo");
+                            bCargar.setEnabled(true);
+                            JSONObject json = null;
+                            try {
+                                json = new JSONObject(mMessage);
+                                etInfo.setText("IDRodeo: " + json.getString("id"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }
 
             };
