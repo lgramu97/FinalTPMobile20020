@@ -16,7 +16,8 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:digits="0123456789"
+            android:inputType="number"
             android:layout_marginTop="20dp"
             android:ems="10"
             android:id="@+id/idCantidadDePartos"
@@ -29,6 +30,7 @@
             android:background="@color/white"
             android:shape="rectangle"
             android:padding="10dp"
+
             />
 
         <EditText
@@ -44,7 +46,8 @@
             android:background="@color/white"
             android:ems="10"
             android:hint="ID Electronico"
-            android:inputType="textPersonName"
+            android:digits="0123456789"
+            android:inputType="number"
             android:padding="10dp"
             android:shape="rectangle" />
 
@@ -61,9 +64,11 @@
             android:background="@color/white"
             android:ems="10"
             android:hint="Fecha De Nacimiento"
-            android:inputType="textPersonName"
+            android:inputType="date"
             android:padding="10dp"
-            android:shape="rectangle" />
+            android:shape="rectangle"
+            android:focusable="false"
+            android:clickable="true"/>
 
         <EditText
             android:id="@+id/idPeso"
@@ -78,7 +83,8 @@
             android:background="@color/white"
             android:ems="10"
             android:hint="Peso"
-            android:inputType="textPersonName"
+            android:digits="0123456789."
+            android:inputType="numberDecimal"
             android:padding="10dp"
             android:shape="rectangle" />
 
@@ -97,7 +103,9 @@
             android:hint="Ultima Fecha de Parto"
             android:inputType="textPersonName"
             android:padding="10dp"
-            android:shape="rectangle" />
+            android:shape="rectangle"
+            android:focusable="false"
+            android:clickable="true"/>
 
         <EditText
             android:id="@+id/idHerd"
@@ -112,7 +120,8 @@
             android:background="@color/white"
             android:ems="10"
             android:hint="Id de Manada"
-            android:inputType="textPersonName"
+            android:digits="0123456789"
+            android:inputType="number"
             android:padding="10dp"
             android:shape="rectangle" />
 
