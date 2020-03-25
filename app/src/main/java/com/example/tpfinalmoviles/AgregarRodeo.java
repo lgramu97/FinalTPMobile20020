@@ -29,8 +29,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 public class AgregarRodeo extends AppCompatActivity {
-    private static final String ERROR_POST = "Error al cargar los datos.";
-    private static final String CORRECT_POST = "Datos almacenados correctamente.";
+    private static final String ERROR_POST = "Error al cargar los datos del rodeo.";
+    private static final String CORRECT_POST = "Rodeo cargado con exito.";
 
     private TextView etLocalidad, etInfo;
     private Button bCargar, bBack;
@@ -47,6 +47,8 @@ public class AgregarRodeo extends AppCompatActivity {
         bBack = (Button) findViewById(R.id.bBack);
         etLocalidad = findViewById(R.id.etLocalidad);
         etInfo = findViewById(R.id.etInfo);
+
+        //Hay que controlar que cargue algo en localidad, porque permite realizar post sin caracteres.
         etLocalidad.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
