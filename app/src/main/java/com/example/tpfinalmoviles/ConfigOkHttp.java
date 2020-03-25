@@ -1,6 +1,7 @@
 package com.example.tpfinalmoviles;
 
 import android.util.Log;
+import android.widget.ScrollView;
 
 import org.json.JSONObject;
 
@@ -32,6 +33,7 @@ public class ConfigOkHttp {
                 .url(url)
                 .post(body)
                 .build();
+        System.out.println(json.toString());
         System.out.println(request.url());
         System.out.println(request.body().toString());
 

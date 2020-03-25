@@ -1,9 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@color/grey"
     tools:context=".AgregarRodeoAlerta">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:id="@+id/etIdHerd"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:hint="ID Rodeo"
+            android:background="@color/white"
+            android:shape="rectangle"
+            android:padding="10dp"
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/etBCSmax"
+            android:layout_below="@+id/etIdHerd"
+            android:layout_marginTop="10dp"            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:hint="Maximo valor BCS"
+            android:background="@color/white"
+            android:shape="rectangle"
+            android:padding="10dp"
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/etBCSmin"
+            android:layout_below="@+id/etBCSmax"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:hint="Minimo valor BCS"
+            android:background="@color/white"
+            android:shape="rectangle"
+            android:padding="10dp"
+            />
+
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cargar Alerta"
+            android:id="@+id/bCargar"
+            android:layout_below="@+id/etBCSmin"
+            android:layout_marginTop="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/green"
+            android:padding="10dp"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Regresar"
+            android:id="@+id/bBack"
+            android:layout_below="@+id/bCargar"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/bCargar"
+            android:layout_alignEnd="@+id/bCargar"
+            android:textColor="@color/red"
+            android:padding="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/etInfo"
+            android:layout_below="@+id/bBack"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="ID Alerta Rodeo: "
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_alignRight="@+id/bCargar"
+            android:layout_alignEnd="@+id/bCargar"/>
+
+    </RelativeLayout>
+
+
+</ScrollView>
