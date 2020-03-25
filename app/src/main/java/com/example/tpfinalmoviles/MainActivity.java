@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         idAgregarAlertaVaca.setOnClickListener(this);
 
         String url = getSharedPreferences(ConfigServer.URL_DETAILS,MODE_PRIVATE).getString("url","");
-        System.out.println("DALEEE BOCAAAAA" + url);
+        System.out.println("Y va el tercero" + url);
        /* botonTest = (Button) findViewById(R.id.idButtonTest);
         final String url =  "http://10.0.2.2:8080/api/cow/1/";
         botonTest.setOnClickListener(new View.OnClickListener() {

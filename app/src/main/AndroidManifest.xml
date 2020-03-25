@@ -17,7 +17,9 @@
                     android:configChanges="screenSize|orientation"
                     android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".AgregarRodeoAlerta" />
-        <activity android:name=".ConfigServer">
+        <activity android:name=".ConfigServer"
+                android:configChanges="screenSize|orientation"
+                android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

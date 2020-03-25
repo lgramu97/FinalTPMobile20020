@@ -18,6 +18,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -26,12 +29,9 @@ import okhttp3.Response;
 
 public class AgregarVaca extends AppCompatActivity {
     private Tarea tareaVaca;
-    private Button btnAgregarVaca;
-    private Button btnRegresarVaca;
-    private EditText etCantidadPartos;
-    private EditText etFechaNacimiento;
-    private EditText etFechaUltParto;
-    private Long idCantPartos;
+    private Button btnAgregarVaca,btnRegresarVaca,btnResetVaca;
+    private EditText etCantidadPartos,etIdElectronico, etFechaNacimiento, etIdPeso, etFechaUltParto,etIdRodeo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +41,22 @@ public class AgregarVaca extends AppCompatActivity {
         etFechaNacimiento = (EditText) findViewById(R.id.idFechaNacimiento);
         etFechaUltParto = (EditText) findViewById(R.id.idUltFechaParto);
         etCantidadPartos = (EditText) findViewById(R.id.idCantidadDePartos);
+        etIdElectronico = (EditText) findViewById(R.id.idElectronico);
+        etIdPeso = (EditText) findViewById(R.id.idPeso);
+        etIdRodeo = (EditText) findViewById(R.id.idHerd);
+        btnResetVaca = (Button) findViewById(R.id.idbtResetVaca) ;
+        btnResetVaca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etFechaNacimiento.setText("");
+                etFechaUltParto.setText("");
+                etCantidadPartos.setText("");
+                etIdElectronico.setText("");
+                etIdPeso.setText("");
+                etIdRodeo.setText("");
+
+            }
+        });
 
         etFechaUltParto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +87,7 @@ public class AgregarVaca extends AppCompatActivity {
             }
         });
 
+
     }
 
     private void showDatePickerDialog(int p ) {
@@ -80,7 +97,7 @@ public class AgregarVaca extends AppCompatActivity {
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                     // +1 because January is zero
-                    final String selectedDate = day + " / " + (month + 1) + " / " + year;
+                    final String selectedDate = day + "-" + (month + 1) + "-" + year;
                     etFechaNacimiento.setText(selectedDate);
 
                 }
@@ -93,7 +110,7 @@ public class AgregarVaca extends AppCompatActivity {
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                     // +1 because January is zero
-                    final String selectedDate = day + " / " + (month + 1) + " / " + year;
+                    final String selectedDate = day + "-" + (month + 1) + "-" + year;
                     etFechaUltParto.setText(selectedDate);
                 }
             });
@@ -106,17 +123,32 @@ public class AgregarVaca extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... strings){
-            System.out.println("jejejeje" + strings[0]);
             String url = getSharedPreferences(ConfigServer.URL_DETAILS,MODE_PRIVATE).getString("url","")+"api/cow/";
+            final Long cantPartos = (etCantidadPartos.getText().toString().length() != 0) ? Long.parseLong((etCantidadPartos.getText().toString())) : 0;
+            final Long electronico = (etIdElectronico.getText().toString().length() != 0) ? Long.parseLong((etIdElectronico.getText().toString())) : 0;
+            String fechaNacimiento = null;
+            String fechaUltParto = null;
+            try {
+                fechaNacimiento = formatoFecha(etFechaNacimiento.getText().toString());
+                fechaUltParto = formatoFecha(etFechaUltParto.getText().toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            final Double peso = (etIdPeso.getText().toString().length() != 0) ? Double.valueOf((etIdPeso.getText().toString())) : 0.0;
+            final Long rodeo = (etIdRodeo.getText().toString().length() != 0) ? Long.valueOf((etIdRodeo.getText().toString())) : 0;
+            if (cantPartos == 0 || cantPartos == null)
+                fechaUltParto=null;
             ConfigOkHttp peticion = new ConfigOkHttp();
             JSONObject jsonVaca = new JSONObject();
             try {
-                jsonVaca.put("cantidadPartos",Long.valueOf(strings[0]));
-                jsonVaca.put("electronicId",7);
-                jsonVaca.put("fechaNacimiento","2018-10-09");
-                jsonVaca.put("herdId",1);
-                jsonVaca.put("peso",1.3);
-                jsonVaca.put("ultimaFechaParto",null);
+                jsonVaca.put("cantidadPartos",cantPartos);
+                jsonVaca.put("electronicId",electronico);
+                jsonVaca.put("fechaNacimiento",fechaNacimiento);
+                jsonVaca.put("herdId",rodeo);
+                jsonVaca.put("peso",peso);
+                jsonVaca.put("ultimaFechaParto",fechaUltParto);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -137,5 +169,13 @@ public class AgregarVaca extends AppCompatActivity {
             peticion.post(url,jsonVaca,callback);
             return null;
         }
+
+        private String formatoFecha(String fecha) throws ParseException {
+            Date date = new SimpleDateFormat("dd-MM-yyyy").parse(fecha);
+            String formatoDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(date);
+            return formatoDate;
+        }
+
+
     }
 }

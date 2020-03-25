@@ -138,12 +138,25 @@
             android:padding="10dp"
             android:text="Cargar Vaca"
             android:textColor="@color/green" />
+        <Button
+            android:id="@+id/idbtResetVaca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/idCargarVaca"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:text="Reset"
+            android:textColor="@color/red" />
 
         <Button
             android:id="@+id/idbBackVaca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/idCargarVaca"
+            android:layout_below="@+id/idbtResetVaca"
             android:layout_marginTop="5dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"

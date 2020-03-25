@@ -69,7 +69,7 @@ public class AgregarRodeo extends AppCompatActivity {
         bCargar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Riber gay");
+                System.out.println("quinteroooooooooo gaaaaaaaaaaaaaaaaaaaaaaaal");
                 bCargar.setText("Enviando Datos");
                 bCargar.setEnabled(false);
                 tareaRodeo = new Tarea();

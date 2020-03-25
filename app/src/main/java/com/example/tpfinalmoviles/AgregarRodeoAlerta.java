@@ -43,7 +43,7 @@ public class AgregarRodeoAlerta extends AppCompatActivity {
         bCargar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("BOCA CAMPEON 2020");
+                System.out.println("River 3 boca 1");
                 bCargar.setText("Enviando Datos");
                 bCargar.setEnabled(false);
                 tareaRodeoAlerta = new Tarea();
