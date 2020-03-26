@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AgregarVacaAlerta"></activity>
+        <activity android:name=".ConsultarVaca"></activity>
+        <activity android:name=".AgregarVacaAlerta" />
         <activity android:name=".AgregarRodeoAlerta" />
         <activity android:name=".ConfigServer">
             <intent-filter>

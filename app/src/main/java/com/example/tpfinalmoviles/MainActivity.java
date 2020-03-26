@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private  OkHttpClient client; //= new OkHttpClient();
     private Button botonTest;
     public ConfigOkHttp config;
-    private CardView idAgregarVaca, idAgregarRodeo, idAgregarAlertaVaca, idAgregarAlertaRodeo;
+    private CardView idAgregarVaca, idAgregarRodeo, idAgregarAlertaVaca, idAgregarAlertaRodeo
+                    ,idConsultarVaca;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +45,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         idAgregarRodeo = (CardView) findViewById(R.id.idAgregarRodeo);
         idAgregarAlertaRodeo = (CardView) findViewById(R.id.idAgregarAlertaRodeo);
         idAgregarAlertaVaca = (CardView) findViewById(R.id.idAgregarAlertaVaca);
+        idConsultarVaca = (CardView) findViewById(R.id.idConsultarVaca);
 
         idAgregarVaca.setOnClickListener(this);
         idAgregarRodeo.setOnClickListener(this);
         idAgregarAlertaRodeo.setOnClickListener(this);
         idAgregarAlertaVaca.setOnClickListener(this);
+        idConsultarVaca.setOnClickListener(this);
 
         String url = getSharedPreferences(ConfigServer.URL_DETAILS,MODE_PRIVATE).getString("url","");
         System.out.println("DALEEE BOCAAAAA" + url);
@@ -202,6 +205,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 i = new Intent(this, AgregarVacaAlerta.class);
                 startActivity(i);
                 System.out.println("jeropaa");
+                break;
+            case R.id.idConsultarVaca:
+                i = new Intent(this, ConsultarVaca.class);
+                startActivity(i);
+                System.out.println("maaaiaaaaameeeeee");
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
