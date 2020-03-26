@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConsultarVaca"
+    android:background="@color/grey"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:id="@+id/idVaca"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:hint="Id Vaca"
+            android:background="@color/white"
+            android:shape="rectangle"
+            android:padding="10dp"
+            />
+
+        <Button
+            android:id="@+id/bConsultar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/idVaca"
+            android:layout_marginTop="35dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:text="Consultar Vaca"
+            android:textColor="@color/green" />
+
+        <Button
+            android:id="@+id/bBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bConsultar"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:text="Regresar"
+            android:textColor="@color/red" />
+
+        <ScrollView
+            android:id="@+id/idScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bBack"
+            android:paddingTop="10dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:paddingStart="5dp"
+               >
+
+                <LinearLayout
+                    android:id="@+id/lIdElctronico"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="center_horizontal"
+                        android:text="Id Electronico: "
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/etIdElectronico"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:background="@color/white"
+                        android:ems="10"
+                        android:text="Consultaa"
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lIdManada"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="Id Manada: "
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/etIdManada"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:background="@color/white"
+                        android:ems="10"
+                        android:text="Consultaefsegrrga"
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lFechaNacimiento"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="center_horizontal"
+                        android:text="Fecha de Nacimiento: "
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/etFechaNacimiento"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:background="@color/white"
+                        android:ems="10"
+                        android:text="Consultaa"
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lPeso"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="center_horizontal"
+                        android:text="Peso: "
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/etPeso"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:background="@color/white"
+                        android:ems="10"
+                        android:text="Consultaa"
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lCantPartos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="center_horizontal"
+                        android:text=" Cantidad de Partos: "
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/etCantPartos"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:background="@color/white"
+                        android:ems="10"
+                        android:text="Consultaa"
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lFechaParto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="center_horizontal"
+                        android:text="Fecha ultimo Parto: "
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/etFechaParto"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:background="@color/white"
+                        android:ems="10"
+                        android:text="Consultaa"
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lIdBSC"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="center_horizontal"
+                        android:text="Id BSC: "
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/etIdBSC"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:background="@color/white"
+                        android:ems="10"
+                        android:text="Consultaa"
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lFechaBSC"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="center_horizontal"
+                        android:text=" Fecha BSC: "
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/etFechaBSC"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:background="@color/white"
+                        android:ems="10"
+                        android:text="Consultaa"
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lCC"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="center_horizontal"
+                        android:text="CC "
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/etCC"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:background="@color/white"
+                        android:ems="10"
+                        android:text="Consultaa"
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+    </ScrollView>
+
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

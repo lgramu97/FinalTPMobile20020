@@ -13,9 +13,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
+
         <activity   android:name=".AgregarVacaAlerta"
                     android:configChanges="screenSize|orientation"
                     android:windowSoftInputMode="stateHidden"></activity>
+
+        <activity android:name=".ConsultarVaca"></activity>
+        <activity android:name=".AgregarVacaAlerta" />
         <activity android:name=".AgregarRodeoAlerta" />
         <activity android:name=".ConfigServer"
                 android:configChanges="screenSize|orientation"

@@ -36,6 +36,7 @@ public class AgregarRodeo extends AppCompatActivity {
     private Button bCargar, bBack;
     private Tarea tareaRodeo;
     private String sLocalidad;
+    private String mMessage;
 
 
     @Override
@@ -115,7 +116,8 @@ public class AgregarRodeo extends AppCompatActivity {
 
                 @Override
                 public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
-                    final String mMessage = response.body().string();
+                    //final String mMessage = response.body().string();
+                    mMessage = response.body().string();
                     System.out.println("a " + mMessage);
                     ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
                     runOnUiThread(new Runnable() {
@@ -133,12 +135,9 @@ public class AgregarRodeo extends AppCompatActivity {
                         }
                     });
                 }
-
             };
             peticion.post(url,jsonRodeo,callback);
             return null;
         }
-
-
     }
 }

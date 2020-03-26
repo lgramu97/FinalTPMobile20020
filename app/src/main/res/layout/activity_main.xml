@@ -186,6 +186,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/idConsultarVaca"
                 android:layout_width="170dp"
                 android:layout_height="170dp"
                 app:cardCornerRadius="12dp"
@@ -200,16 +201,17 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="128dp"
+                        android:layout_height="64dp"
                         android:src="@drawable/cow"
-                        android:layout_marginTop="24dp">
+                        android:layout_marginTop="24dp"
+                        android:background="@color/white">
                     </ImageView>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ADD COW"
+                        android:text="Consultar Vaca"
                         android:fontFamily="@font/googlesans_bold"
                         android:textSize="16sp"
                         android:textColor="@color/white"
