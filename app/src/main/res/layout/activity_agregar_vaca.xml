@@ -179,7 +179,5 @@
             android:textColor="@color/white"
             android:layout_alignRight="@+id/bCargar"
             android:layout_alignEnd="@+id/bCargar"/>
-
-
     </RelativeLayout>
 </ScrollView>

@@ -12,29 +12,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-
-        <activity   android:name=".AgregarVacaAlerta"
-                    android:configChanges="screenSize|orientation"
-                    android:windowSoftInputMode="stateHidden"></activity>
-
-        <activity android:name=".ConsultarVaca"></activity>
+        <activity android:name=".ConsultarRodeo"></activity>
+        <activity
+            android:name=".AgregarVacaAlerta"
+            android:configChanges="screenSize|orientation"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ConsultarVaca" />
         <activity android:name=".AgregarRodeoAlerta" />
-        <activity android:name=".ConfigServer"
-                android:configChanges="screenSize|orientation"
-                android:windowSoftInputMode="stateHidden">
+        <activity
+            android:name=".ConfigServer"
+            android:configChanges="screenSize|orientation"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AgregarRodeo"
-                    android:configChanges="screenSize|orientation"
-                    android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".AgregarVaca"
-                    android:configChanges="screenSize|orientation"
-                    android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".AgregarRodeo"
+            android:configChanges="screenSize|orientation"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".AgregarVaca"
+            android:configChanges="screenSize|orientation"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".MainActivity" />
     </application>
 

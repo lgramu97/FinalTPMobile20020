@@ -42,7 +42,9 @@ public class ConfigOkHttp {
     };
 
     public void get(String url, Callback callback){
+        client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();
+        System.out.println("paso2");
         client.newCall(request).enqueue(callback);
     }
 
