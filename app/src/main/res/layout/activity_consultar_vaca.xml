@@ -76,7 +76,6 @@
                >
 
                 <LinearLayout
-                    android:id="@+id/lIdElctronico"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
@@ -103,7 +102,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lIdManada"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
@@ -130,7 +128,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lFechaNacimiento"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
@@ -157,7 +154,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lPeso"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
@@ -184,7 +180,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lCantPartos"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
@@ -211,7 +206,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lFechaParto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
@@ -238,7 +232,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lIdBSC"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
@@ -265,7 +258,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lFechaBSC"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
@@ -292,7 +284,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lCC"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"

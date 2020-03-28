@@ -1,14 +1,7 @@
 package com.example.tpfinalmoviles;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -16,16 +9,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 public class AgregarRodeo extends AppCompatActivity {
@@ -87,10 +80,10 @@ public class AgregarRodeo extends AppCompatActivity {
 
     }
 
-    private class Tarea extends AsyncTask<Void,Void,Void>{
+    private class Tarea extends AsyncTask<Void,Void,String>{
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected String doInBackground(Void... voids) {
             String url = getSharedPreferences(ConfigServer.URL_DETAILS,MODE_PRIVATE).getString("url","")+"api/herd/";
             ConfigOkHttp peticion = new ConfigOkHttp();
             final JSONObject jsonRodeo = new JSONObject();

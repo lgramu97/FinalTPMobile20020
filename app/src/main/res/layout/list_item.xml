@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/black">
+
+    <LinearLayout
+        android:id="@+id/lFechaNacimiento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:fontFamily="@font/googlesans_bold"
+            android:gravity="center_horizontal"
+            android:text="Fecha de Nacimiento: "
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/etFechaNacimiento"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@color/white"
+            android:ems="10"
+            android:text="Consultaa"
+            android:fontFamily="@font/googlesans_bold"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lPeso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center_horizontal"
+            android:text="Peso: "
+            android:fontFamily="@font/googlesans_bold"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/etPeso"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@color/white"
+            android:ems="10"
+            android:text="Consultaa"
+            android:fontFamily="@font/googlesans_bold"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lCantPartos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center_horizontal"
+            android:text=" Cantidad de Partos: "
+            android:fontFamily="@font/googlesans_bold"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/etCantPartos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@color/white"
+            android:ems="10"
+            android:text="Consultaa"
+            android:fontFamily="@font/googlesans_bold"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lFechaParto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center_horizontal"
+            android:text="Fecha ultimo Parto: "
+            android:fontFamily="@font/googlesans_bold"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/etFechaParto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@color/white"
+            android:ems="10"
+            android:text="Consultaa"
+            android:fontFamily="@font/googlesans_bold"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lIdBSC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center_horizontal"
+            android:text="Id BSC: "
+            android:fontFamily="@font/googlesans_bold"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/etIdBSC"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@color/white"
+            android:ems="10"
+            android:text="Consultaa"
+            android:fontFamily="@font/googlesans_bold"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lFechaBSC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center_horizontal"
+            android:text=" Fecha BSC: "
+            android:fontFamily="@font/googlesans_bold"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/etFechaBSC"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@color/white"
+            android:ems="10"
+            android:text="Consultaa"
+            android:fontFamily="@font/googlesans_bold"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lCC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center_horizontal"
+            android:text="CC "
+            android:fontFamily="@font/googlesans_bold"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/etCC"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@color/white"
+            android:ems="10"
+            android:text="Consultaa"
+            android:fontFamily="@font/googlesans_bold"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</LinearLayout>

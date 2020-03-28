@@ -1,7 +1,5 @@
 package com.example.tpfinalmoviles;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -105,14 +104,14 @@ public class ConsultarVaca extends AppCompatActivity {
                                 pesoView.setText(json.getString("peso"));
                                 cantPartosView.setText(json.getString("cantidadPartos"));
                                 if (json.getString("ultimaFechaParto").equals("null"))
-                                    fechaUltParto.setText("");
+                                    fechaUltParto.setText("--");
                                 else
                                     fechaUltParto.setText(json.getString("ultimaFechaParto"));
-                                bscView.setText(json.getString("cowBcsId"));
                                 if (json.getString("fechaBcs").equals("null"))
-                                    fechaBscView.setText("");
+                                    fechaBscView.setText("--");
                                 else
                                     fechaBscView.setText(json.getString("fechaBcs"));
+                                bscView.setText(json.getString("cowBcsId"));
                                 ccView.setText(json.getString("cc"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -121,7 +120,6 @@ public class ConsultarVaca extends AppCompatActivity {
                     });
 
                         }
-
 
             };
             System.out.println("Paso1");
