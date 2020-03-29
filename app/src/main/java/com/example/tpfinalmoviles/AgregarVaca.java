@@ -3,34 +3,31 @@ package com.example.tpfinalmoviles;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
 
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class AgregarVaca extends AppCompatActivity {
-    private Tarea tareaVaca;
-    private Button btnAgregarVaca,btnRegresarVaca,btnResetVaca;
-    private EditText etCantidadPartos,etIdElectronico, etFechaNacimiento, etIdPeso, etFechaUltParto,etIdRodeo;
+    private Button btnAgregarVaca, btnRegresarVaca, btnResetVaca;
+    private EditText etCantidadPartos, etIdElectronico, etFechaNacimiento, etIdPeso, etFechaUltParto, etIdRodeo;
+    private TextView infoId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +41,8 @@ public class AgregarVaca extends AppCompatActivity {
         etIdElectronico = (EditText) findViewById(R.id.idElectronico);
         etIdPeso = (EditText) findViewById(R.id.idPeso);
         etIdRodeo = (EditText) findViewById(R.id.idHerd);
-        btnResetVaca = (Button) findViewById(R.id.idbtResetVaca) ;
+        btnResetVaca = (Button) findViewById(R.id.idbtResetVaca);
+        infoId = (TextView) findViewById(R.id.etInfo) ;
         btnResetVaca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +52,6 @@ public class AgregarVaca extends AppCompatActivity {
                 etIdElectronico.setText("");
                 etIdPeso.setText("");
                 etIdRodeo.setText("");
-
             }
         });
 
@@ -74,10 +71,10 @@ public class AgregarVaca extends AppCompatActivity {
         btnAgregarVaca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Dale river");
-                System.out.println("aaas" + etCantidadPartos.getText().toString());
-                tareaVaca = new Tarea();
-                tareaVaca.execute(etCantidadPartos.getText().toString());
+                if (esValido(etCantidadPartos) && esValido(etIdElectronico) && esValido(etFechaNacimiento) && esValido(etIdPeso) &&
+                    esValidoFechaParto(etCantidadPartos,etFechaUltParto) && esValido(etIdRodeo))
+                        agregarVaca();
+
             }
         });
         btnRegresarVaca.setOnClickListener(new View.OnClickListener() {
@@ -90,8 +87,22 @@ public class AgregarVaca extends AppCompatActivity {
 
     }
 
-    private void showDatePickerDialog(int p ) {
-        if (p == 1 ){
+    private boolean esValidoFechaParto(EditText cantPartos, EditText etFechaUltParto) {
+        if (cantPartos.getText().toString() != null && Integer.parseInt(cantPartos.getText().toString())>0
+                && etFechaUltParto.getText().toString().length()>0)
+            return true;
+        etFechaUltParto.setText("");
+        return false;
+    }
+
+    private boolean esValido(EditText editText) {
+        if (editText.getText().toString().length()>0)
+            return true;
+        return false;
+    }
+
+    private void showDatePickerDialog(int p) {
+        if (p == 1) {
 
             DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
                 @Override
@@ -99,13 +110,11 @@ public class AgregarVaca extends AppCompatActivity {
                     // +1 because January is zero
                     final String selectedDate = day + "-" + (month + 1) + "-" + year;
                     etFechaNacimiento.setText(selectedDate);
-
                 }
             });
 
             newFragment.show(getSupportFragmentManager(), "datePicker");
-        }
-        else{
+        } else {
             DatePickerFragment nf = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -119,7 +128,50 @@ public class AgregarVaca extends AppCompatActivity {
         }
     }
 
-    private class Tarea extends AsyncTask<String,Void,Void>{
+    public void agregarVaca(){
+        String url = getSharedPreferences(ConfigServer.URL_DETAILS,MODE_PRIVATE).getString("url","")+"api/";
+        int cantPartos = Integer.parseInt(etCantidadPartos.getText().toString());
+        int electronico = Integer.parseInt(etIdElectronico.getText().toString());
+        String fechaNacimiento = null;
+        String fechaUltParto = null;
+        try {
+            fechaNacimiento = formatoFecha(etFechaNacimiento.getText().toString());
+            fechaUltParto = formatoFecha(etFechaUltParto.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        final double peso = Double.valueOf((etIdPeso.getText().toString()));
+        final int rodeo = Integer.valueOf((etIdRodeo.getText().toString()));
+
+        Vaca vaca = new Vaca(cantPartos,electronico,fechaNacimiento,rodeo,peso,fechaUltParto);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        PlaceHolder placeholder = retrofit.create(PlaceHolder.class);
+        Call<Vaca> call = placeholder.agregarVaca(vaca);
+        call.enqueue(new Callback<Vaca>() {
+            @Override
+            public void onResponse(Call<Vaca> call, Response<Vaca> response) {
+                if (!response.isSuccessful()) {
+                    System.out.println("Codigo " + response.code());
+                    return;
+                }
+                System.out.println("Codigo " + response.code());
+                Vaca vacaResponse = response.body();
+                infoId.setText("Id Vaca: " + String.valueOf(vacaResponse.getId()));
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Vaca> call, Throwable t) {
+
+            }
+        });
+    }
+ /*   private class Tarea extends AsyncTask<String,Void,Void>{
 
         @Override
         protected Void doInBackground(String... strings){
@@ -168,7 +220,7 @@ public class AgregarVaca extends AppCompatActivity {
             };
             peticion.post(url,jsonVaca,callback);
             return null;
-        }
+        }*/
 
         private String formatoFecha(String fecha) throws ParseException {
             Date date = new SimpleDateFormat("dd-MM-yyyy").parse(fecha);
@@ -177,5 +229,4 @@ public class AgregarVaca extends AppCompatActivity {
         }
 
 
-    }
 }

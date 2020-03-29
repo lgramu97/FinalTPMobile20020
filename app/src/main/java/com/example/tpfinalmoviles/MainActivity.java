@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button botonTest;
     public ConfigOkHttp config;
     private CardView idAgregarVaca, idAgregarRodeo, idAgregarAlertaVaca, idAgregarAlertaRodeo
-                    ,idConsultarVaca, idConsultarRodeo;
+                    ,idConsultarVaca, idConsultarRodeo, idGenerarBCS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         idAgregarAlertaVaca = (CardView) findViewById(R.id.idAgregarAlertaVaca);
         idConsultarVaca = (CardView) findViewById(R.id.idConsultarVaca);
         idConsultarRodeo = (CardView) findViewById(R.id.idConsultarRodeo);
+        idGenerarBCS = (CardView) findViewById(R.id.idGenerarBCS);
 
         idAgregarVaca.setOnClickListener(this);
         idAgregarRodeo.setOnClickListener(this);
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         idAgregarAlertaVaca.setOnClickListener(this);
         idConsultarVaca.setOnClickListener(this);
         idConsultarRodeo.setOnClickListener(this);
+        idGenerarBCS.setOnClickListener(this);
+
         String url = getSharedPreferences(ConfigServer.URL_DETAILS,MODE_PRIVATE).getString("url","");
         System.out.println("Y va el tercero" + url);
        /* botonTest = (Button) findViewById(R.id.idButtonTest);
@@ -214,6 +217,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.idConsultarRodeo:
                 i = new Intent(this,ConsultarRodeo.class);
+                startActivity(i);
+                System.out.println("en todos lados");
+                break;
+            case R.id.idGenerarBCS:
+                i = new Intent(this,GenerarBCS.class);
                 startActivity(i);
                 System.out.println("en todos lados");
                 break;

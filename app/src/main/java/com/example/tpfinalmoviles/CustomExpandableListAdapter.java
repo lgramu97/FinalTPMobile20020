@@ -16,11 +16,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> listVacas;
-    private HashMap<String, Vaca> expandableListDetalles;
+    private HashMap<String, VacaRodeo> expandableListDetalles;
 
     public CustomExpandableListAdapter(Context context,
                                        List<String> listTitulo,
-                                       HashMap<String, Vaca> expandableListDetalles) {
+                                       HashMap<String, VacaRodeo> expandableListDetalles) {
         this.context = context;
         this.listVacas = listTitulo;
         this.expandableListDetalles = expandableListDetalles;
@@ -30,7 +30,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final Vaca vaca = (Vaca) getChild(groupPosition, childPosition);
+        final VacaRodeo vaca = (VacaRodeo) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
 

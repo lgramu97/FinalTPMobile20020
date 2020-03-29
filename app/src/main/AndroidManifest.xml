@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ConsultarRodeo"></activity>
+        <activity android:name=".GenerarBCS"></activity>
+        <activity android:name=".ConsultarRodeo" />
         <activity
             android:name=".AgregarVacaAlerta"
             android:configChanges="screenSize|orientation"

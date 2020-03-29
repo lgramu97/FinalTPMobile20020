@@ -42,7 +42,7 @@ public class ConsultarRodeo extends AppCompatActivity {
     private ExpandableListView expandableListView;
     private ExpandableListAdapter expandableListAdapter;
     private List<String> expandableListNombres;
-    private HashMap<String, Vaca> listaVacas;
+    private HashMap<String, VacaRodeo> listaVacas;
     private int lastExpandedPosition = -1;
     private JSONArray array;
 
@@ -119,8 +119,8 @@ public class ConsultarRodeo extends AppCompatActivity {
                                 if ( array != null) {
                                     System.out.println("IMPRIMIENDO ARRAY " + array.toString());
                                     final Gson gson = new Gson();
-                                    final Type tipoListaVaca = new TypeToken<List<Vaca>>(){}.getType();
-                                    final List<Vaca> vacas = gson.fromJson(array.toString(), tipoListaVaca);
+                                    final Type tipoListaVaca = new TypeToken<List<VacaRodeo>>(){}.getType();
+                                    final List<VacaRodeo> vacas = gson.fromJson(array.toString(), tipoListaVaca);
                                     init(vacas);
                                     expandableListView.setAdapter(expandableListAdapter);
                                     expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
@@ -151,7 +151,7 @@ public class ConsultarRodeo extends AppCompatActivity {
         }
     }
 
-    private void init(List<Vaca> vacas) {
+    private void init(List<VacaRodeo> vacas) {
         this.expandableListView = findViewById(R.id.elvList);
         this.listaVacas = getVacas(vacas);
         this.expandableListNombres = new ArrayList<>(listaVacas.keySet());
@@ -160,10 +160,10 @@ public class ConsultarRodeo extends AppCompatActivity {
 
     }
 
-    private HashMap<String, Vaca> getVacas(List<Vaca> vacas) {
-        HashMap<String, Vaca> listaV = new HashMap<>();
+    private HashMap<String, VacaRodeo> getVacas(List<VacaRodeo> vacas) {
+        HashMap<String, VacaRodeo> listaV = new HashMap<>();
         System.out.println("SIZE " + vacas.size());
-        for (Vaca v:vacas){
+        for (VacaRodeo v:vacas){
             listaV.put("Vaca "+ v.getId(), v);
         }
         System.out.println("SIZE2 " + listaV.size());

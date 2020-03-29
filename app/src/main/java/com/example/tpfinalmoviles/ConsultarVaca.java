@@ -1,6 +1,5 @@
 package com.example.tpfinalmoviles;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,16 +8,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ConsultarVaca extends AppCompatActivity {
     private Button bConsultarVaca;
@@ -26,7 +20,7 @@ public class ConsultarVaca extends AppCompatActivity {
     private EditText idVaca;
     private ScrollView scrollView;
     private TextView electronicoView,manadaView,fechaNacimientoView,pesoView,cantPartosView,fechaUltParto,bscView,fechaBscView,ccView;
-    private Tarea tarea;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +41,8 @@ public class ConsultarVaca extends AppCompatActivity {
         bConsultarVaca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getVaca();
                 scrollView.setVisibility(View.VISIBLE);
-                tarea = new Tarea();
-                tarea.execute();
             }
         });
         bRegresar.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +53,49 @@ public class ConsultarVaca extends AppCompatActivity {
         });
     }
 
-    private class Tarea extends AsyncTask<Void, Void, Void> {
+    private void getVaca(){
+        final int idV = Integer.parseInt(idVaca.getText().toString());
+        String url = getSharedPreferences(ConfigServer.URL_DETAILS, MODE_PRIVATE).getString("url", "") + "/api/";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        PlaceHolder placeHolder = retrofit.create(PlaceHolder.class);
+        Call<Vaca> call = placeHolder.getCowID(idV);
+
+        call.enqueue(new Callback<Vaca>() {
+            @Override
+            public void onResponse(Call<Vaca> call, Response<Vaca> response) {
+                if (!response.isSuccessful()){
+                    System.out.println("Codigo: " + response.code());
+                    return;
+                }
+                Vaca vaca = response.body();
+                electronicoView.setText(String.valueOf(vaca.getElectronicId()));
+                manadaView.setText(String.valueOf(vaca.getHerdId()));
+                fechaNacimientoView.setText(vaca.getFechaNacimiento().substring(0,10));
+                pesoView.setText(String.valueOf(vaca.getPeso()));
+                cantPartosView.setText(String.valueOf(vaca.getCantidadPartos()));
+                if (vaca.getUltimaFechaParto() == null)
+                    fechaUltParto.setText("--");
+                else
+                    fechaUltParto.setText(vaca.getUltimaFechaParto().substring(0,10));
+                if (vaca.getFechaBcs() == null)
+                    fechaBscView.setText("--");
+                else
+                    fechaBscView.setText(vaca.getFechaBcs().substring(0,10));
+                bscView.setText(String.valueOf(vaca.getCowBcsId()));
+                ccView.setText(String.valueOf(vaca.getCc()));
+            }
+            @Override
+            public void onFailure(Call<Vaca> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+
+    }
+
+ /*   private class Tarea extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -126,5 +161,5 @@ public class ConsultarVaca extends AppCompatActivity {
             peticion.get(url, callback);
             return null;
         }
-    }
+    }*/
 }
