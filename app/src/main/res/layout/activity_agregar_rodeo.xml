@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="20dp"
     android:background="@color/grey"
-    tools:context=".AgregarRodeo">
+    tools:context=".Model.AgregarRodeo">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"

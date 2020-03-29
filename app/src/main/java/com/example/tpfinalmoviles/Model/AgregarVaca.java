@@ -1,17 +1,22 @@
-package com.example.tpfinalmoviles;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.tpfinalmoviles.Model;
 
 import android.app.DatePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tpfinalmoviles.R;
+import com.example.tpfinalmoviles.Utils.ConfigOkHttp;
+import com.example.tpfinalmoviles.Utils.ConfigServer;
+import com.example.tpfinalmoviles.Utils.DatePickerFragment;
+import com.example.tpfinalmoviles.Utils.ToastHandler;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -28,10 +33,13 @@ import okhttp3.Response;
 
 
 public class AgregarVaca extends AppCompatActivity {
+    private static final String ERROR_POST = "Error al cargar los datos del animal.";
+    private static final String CORRECT_POST = "Animal cargado con exito.";
+
     private Tarea tareaVaca;
     private Button btnAgregarVaca,btnRegresarVaca,btnResetVaca;
     private EditText etCantidadPartos,etIdElectronico, etFechaNacimiento, etIdPeso, etFechaUltParto,etIdRodeo;
-
+    private TextView etInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +52,7 @@ public class AgregarVaca extends AppCompatActivity {
         etIdElectronico = (EditText) findViewById(R.id.idElectronico);
         etIdPeso = (EditText) findViewById(R.id.idPeso);
         etIdRodeo = (EditText) findViewById(R.id.idHerd);
+        etInfo = (TextView) findViewById(R.id.etInfo);
         btnResetVaca = (Button) findViewById(R.id.idbtResetVaca) ;
         btnResetVaca.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +63,7 @@ public class AgregarVaca extends AppCompatActivity {
                 etIdElectronico.setText("");
                 etIdPeso.setText("");
                 etIdRodeo.setText("");
+                etInfo.setText("");
 
             }
         });
@@ -74,8 +84,9 @@ public class AgregarVaca extends AppCompatActivity {
         btnAgregarVaca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Dale river");
                 System.out.println("aaas" + etCantidadPartos.getText().toString());
+                btnAgregarVaca.setText("Enviando Datos");
+                btnAgregarVaca.setEnabled(false);
                 tareaVaca = new Tarea();
                 tareaVaca.execute(etCantidadPartos.getText().toString());
             }
@@ -158,12 +169,36 @@ public class AgregarVaca extends AppCompatActivity {
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
                     System.out.println("error " + call.toString());
                     System.out.println(e.toString());
+                    ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            btnAgregarVaca.setText("Cargar Rodeo");
+                            btnAgregarVaca.setEnabled(true);
+                        }
+                    });
                 }
 
                 @Override
                 public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
-                    String mMessage = response.body().string();
+                    final String mMessage = response.body().string();
                     System.out.println(mMessage);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            btnAgregarVaca.setText("Cargar Rodeo");
+                            btnAgregarVaca.setEnabled(true);
+                            JSONObject json = null;
+                            try {
+                                json = new JSONObject(mMessage);
+                                etInfo.setText("ID Vaca: " + json.getString("id"));
+                                ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
+                            } catch (JSONException e) {
+                                ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }
             };
             peticion.post(url,jsonVaca,callback);

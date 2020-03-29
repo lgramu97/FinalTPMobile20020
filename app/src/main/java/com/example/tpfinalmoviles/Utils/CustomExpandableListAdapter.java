@@ -1,4 +1,4 @@
-package com.example.tpfinalmoviles;
+package com.example.tpfinalmoviles.Utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
+import com.example.tpfinalmoviles.R;
+import com.example.tpfinalmoviles.io.Response.Vaca;
 
 import java.util.HashMap;
 import java.util.List;

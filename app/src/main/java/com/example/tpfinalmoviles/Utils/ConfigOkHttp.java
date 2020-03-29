@@ -1,15 +1,12 @@
-package com.example.tpfinalmoviles;
-
-import android.util.Log;
-import android.widget.ScrollView;
+package com.example.tpfinalmoviles.Utils;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.concurrent.Callable;
-
-import okhttp3.*;
-import static android.content.ContentValues.TAG;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class ConfigOkHttp {
     private OkHttpClient client;

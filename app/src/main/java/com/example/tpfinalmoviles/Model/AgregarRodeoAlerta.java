@@ -1,6 +1,4 @@
-package com.example.tpfinalmoviles;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.tpfinalmoviles.Model;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,6 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tpfinalmoviles.R;
+import com.example.tpfinalmoviles.Utils.ConfigOkHttp;
+import com.example.tpfinalmoviles.Utils.ConfigServer;
+import com.example.tpfinalmoviles.Utils.ToastHandler;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;

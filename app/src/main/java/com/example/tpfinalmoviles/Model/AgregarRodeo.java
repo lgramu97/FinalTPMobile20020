@@ -1,4 +1,4 @@
-package com.example.tpfinalmoviles;
+package com.example.tpfinalmoviles.Model;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +10,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tpfinalmoviles.R;
+import com.example.tpfinalmoviles.Utils.ConfigOkHttp;
+import com.example.tpfinalmoviles.Utils.ConfigServer;
+import com.example.tpfinalmoviles.Utils.ToastHandler;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -63,7 +68,6 @@ public class AgregarRodeo extends AppCompatActivity {
         bCargar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("quinteroooooooooo gaaaaaaaaaaaaaaaaaaaaaaaal");
                 bCargar.setText("Enviando Datos");
                 bCargar.setEnabled(false);
                 tareaRodeo = new Tarea();

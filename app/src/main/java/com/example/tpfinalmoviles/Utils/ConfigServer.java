@@ -1,6 +1,4 @@
-package com.example.tpfinalmoviles;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.tpfinalmoviles.Utils;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tpfinalmoviles.Model.MainActivity;
+import com.example.tpfinalmoviles.R;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,13 +33,13 @@ public class ConfigServer extends AppCompatActivity {
     public static final String GUARDADO_EXITO ="Datos correctamente almacenados";
     public static final String GUARDADO_ERROR ="No fue posible almacenar los datos";
     public static final String URL_DETAILS = "direccion url";
+    public static String url;
 
     private EditText etIP;
     private EditText etPort;
     private TextView tModel;
     private Button bConect;
     private Button bEdit;
-    private String url = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

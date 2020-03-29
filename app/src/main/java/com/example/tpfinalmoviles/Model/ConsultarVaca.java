@@ -1,4 +1,4 @@
-package com.example.tpfinalmoviles;
+package com.example.tpfinalmoviles.Model;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +9,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tpfinalmoviles.R;
+import com.example.tpfinalmoviles.Utils.ConfigOkHttp;
+import com.example.tpfinalmoviles.Utils.ConfigServer;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
