@@ -1,6 +1,4 @@
-package com.example.tpfinalmoviles;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.tpfinalmoviles.Model;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -9,8 +7,16 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tpfinalmoviles.PlaceHolder;
+import com.example.tpfinalmoviles.R;
+import com.example.tpfinalmoviles.Utils.ConfigServer;
+import com.example.tpfinalmoviles.Utils.DatePickerFragment;
+import com.example.tpfinalmoviles.Vaca;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,9 +31,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class AgregarVaca extends AppCompatActivity {
+
     private Button btnAgregarVaca, btnRegresarVaca, btnResetVaca;
     private EditText etCantidadPartos, etIdElectronico, etFechaNacimiento, etIdPeso, etFechaUltParto, etIdRodeo;
     private TextView infoId;
+
+    private static final String ERROR_POST = "Error al cargar los datos del animal.";
+    private static final String CORRECT_POST = "Animal cargado con exito.";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +62,7 @@ public class AgregarVaca extends AppCompatActivity {
                 etIdElectronico.setText("");
                 etIdPeso.setText("");
                 etIdRodeo.setText("");
+                //Agregar el etinfo para reset el texto
             }
         });
 
@@ -71,6 +82,7 @@ public class AgregarVaca extends AppCompatActivity {
         btnAgregarVaca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (esValido(etCantidadPartos) && esValido(etIdElectronico) && esValido(etFechaNacimiento) && esValido(etIdPeso) &&
                     esValidoFechaParto(etCantidadPartos,etFechaUltParto) && esValido(etIdRodeo))
                         agregarVaca();
@@ -161,8 +173,6 @@ public class AgregarVaca extends AppCompatActivity {
                 System.out.println("Codigo " + response.code());
                 Vaca vacaResponse = response.body();
                 infoId.setText("Id Vaca: " + String.valueOf(vacaResponse.getId()));
-
-
             }
 
             @Override
@@ -171,57 +181,6 @@ public class AgregarVaca extends AppCompatActivity {
             }
         });
     }
- /*   private class Tarea extends AsyncTask<String,Void,Void>{
-
-        @Override
-        protected Void doInBackground(String... strings){
-            String url = getSharedPreferences(ConfigServer.URL_DETAILS,MODE_PRIVATE).getString("url","")+"api/cow/";
-            final Long cantPartos = (etCantidadPartos.getText().toString().length() != 0) ? Long.parseLong((etCantidadPartos.getText().toString())) : 0;
-            final Long electronico = (etIdElectronico.getText().toString().length() != 0) ? Long.parseLong((etIdElectronico.getText().toString())) : 0;
-            String fechaNacimiento = null;
-            String fechaUltParto = null;
-            try {
-                fechaNacimiento = formatoFecha(etFechaNacimiento.getText().toString());
-                fechaUltParto = formatoFecha(etFechaUltParto.getText().toString());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            final Double peso = (etIdPeso.getText().toString().length() != 0) ? Double.valueOf((etIdPeso.getText().toString())) : 0.0;
-            final Long rodeo = (etIdRodeo.getText().toString().length() != 0) ? Long.valueOf((etIdRodeo.getText().toString())) : 0;
-            if (cantPartos == 0 || cantPartos == null)
-                fechaUltParto=null;
-            ConfigOkHttp peticion = new ConfigOkHttp();
-            JSONObject jsonVaca = new JSONObject();
-            try {
-                jsonVaca.put("cantidadPartos",cantPartos);
-                jsonVaca.put("electronicId",electronico);
-                jsonVaca.put("fechaNacimiento",fechaNacimiento);
-                jsonVaca.put("herdId",rodeo);
-                jsonVaca.put("peso",peso);
-                jsonVaca.put("ultimaFechaParto",fechaUltParto);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Callback callback = new Callback() {
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    System.out.println("error " + call.toString());
-                    System.out.println(e.toString());
-                }
-
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
-                    String mMessage = response.body().string();
-                    System.out.println(mMessage);
-                }
-            };
-            peticion.post(url,jsonVaca,callback);
-            return null;
-        }*/
-
         private String formatoFecha(String fecha) throws ParseException {
             Date date = new SimpleDateFormat("dd-MM-yyyy").parse(fecha);
             String formatoDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(date);

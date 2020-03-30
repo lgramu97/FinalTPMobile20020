@@ -1,7 +1,8 @@
-package com.example.tpfinalmoviles;
+package com.example.tpfinalmoviles.Model;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,23 +13,24 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
+import com.example.tpfinalmoviles.R;
+import com.example.tpfinalmoviles.Utils.CustomExpandableListAdapter;
+import com.example.tpfinalmoviles.Vaca;
+import com.example.tpfinalmoviles.io.CowApiAdapter;
+import com.example.tpfinalmoviles.io.Response.Rodeo;
 import com.google.gson.reflect.TypeToken;
 
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.IOException;
+import org.json.JSONArray;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ConsultarRodeo extends AppCompatActivity {
     private Button bConsultarRodeo;
@@ -36,13 +38,13 @@ public class ConsultarRodeo extends AppCompatActivity {
     private ScrollView scrollView;
     private EditText idRodeo;
     private TextView idLocation,promedioBCS;
-    private Tarea tarea;
+   // private Tarea tarea;
     private String sms;
 
     private ExpandableListView expandableListView;
     private ExpandableListAdapter expandableListAdapter;
     private List<String> expandableListNombres;
-    private HashMap<String, VacaRodeo> listaVacas;
+    private HashMap<String, Vaca> listaVacas;
     private int lastExpandedPosition = -1;
     private JSONArray array;
 
@@ -56,12 +58,32 @@ public class ConsultarRodeo extends AppCompatActivity {
         idRodeo = findViewById(R.id.idRodeoB);
         idLocation = findViewById(R.id.etIdLocation);
         promedioBCS = findViewById(R.id.etBCSPromedio);
+
+        bConsultarRodeo.setEnabled(false);
+        //Hay que controlar que cargue algo en idRodeo, para activar boton consultar.
+        idRodeo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int before, int count) {
+                if (count>0){ //count es cantidad de caracteres que tiene
+                    bConsultarRodeo.setEnabled(true);
+                }else{
+                    bConsultarRodeo.setEnabled(false);
+                }
+            }
+        });
+
         bConsultarRodeo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 scrollView.setVisibility(View.VISIBLE);
-                tarea = new Tarea();
-                tarea.execute();
+                iniciar();
+               // tarea = new Tarea();
+              //  tarea.execute();
             }
         });
         bRegresar.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +97,41 @@ public class ConsultarRodeo extends AppCompatActivity {
 
     }
 
+    private void iniciar() {
+        final int idR = Integer.parseInt(idRodeo.getText().toString());
+        Call<Rodeo> call = CowApiAdapter.getApiService().getRodeo(idR);
+        call.enqueue(new Callback<Rodeo>() {
+            @Override
+            public void onResponse(Call<Rodeo> call, Response<Rodeo> response) {
+                if (response.isSuccessful()) {
+                    Rodeo rodeo = response.body();
+                    System.out.println("IDE RODEO: " + rodeo.getId());
+                    System.out.println("IDE LOCATION: " + rodeo.getLocation());
+                    System.out.println("IDE COWS: " + rodeo.getCows().size());
+                    idLocation.setText(rodeo.getId());
+                    promedioBCS.setText(rodeo.getBcsPromedio());
+                    Type tipoListaVaca = new TypeToken<List<Vaca>>(){}.getType();
+                    init(rodeo.getCows());
+                    expandableListView.setAdapter(expandableListAdapter);
+                    expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+                        @Override
+                        public void onGroupExpand(int groupPosition) {
+                            System.out.println("ENTROOO");
+                            if(lastExpandedPosition != -1 && groupPosition != lastExpandedPosition){
+                                expandableListView.collapseGroup(lastExpandedPosition);
+                            }
+                            lastExpandedPosition = groupPosition;
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onFailure(Call<Rodeo> call, Throwable t) {
+                System.out.println("FALAA");
+            }
+        });
+    }
+/*
     private class Tarea extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -149,9 +206,9 @@ public class ConsultarRodeo extends AppCompatActivity {
             peticion.get(url, callback);
             return null;
         }
-    }
+    }*/
 
-    private void init(List<VacaRodeo> vacas) {
+    private void init(List<Vaca> vacas) {
         this.expandableListView = findViewById(R.id.elvList);
         this.listaVacas = getVacas(vacas);
         this.expandableListNombres = new ArrayList<>(listaVacas.keySet());
@@ -160,13 +217,15 @@ public class ConsultarRodeo extends AppCompatActivity {
 
     }
 
-    private HashMap<String, VacaRodeo> getVacas(List<VacaRodeo> vacas) {
-        HashMap<String, VacaRodeo> listaV = new HashMap<>();
+    private HashMap<String, Vaca> getVacas(List<Vaca> vacas) {
+        HashMap<String, Vaca> listaV = new HashMap<>();
         System.out.println("SIZE " + vacas.size());
-        for (VacaRodeo v:vacas){
+        for (Vaca v:vacas){
             listaV.put("Vaca "+ v.getId(), v);
         }
         System.out.println("SIZE2 " + listaV.size());
         return listaV;
     }
+
+
 }

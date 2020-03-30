@@ -1,33 +1,20 @@
-package com.example.tpfinalmoviles;
+package com.example.tpfinalmoviles.Model;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Switch;
-import android.widget.TextView;
+import com.example.tpfinalmoviles.GenerarBCS;
+import com.example.tpfinalmoviles.R;
+import com.example.tpfinalmoviles.Utils.ConfigOkHttp;
+import com.example.tpfinalmoviles.Utils.ConfigServer;
 
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-
-import static android.content.ContentValues.TAG;
-import static com.example.tpfinalmoviles.R.id.idAgregarRodeo;
-import static com.example.tpfinalmoviles.R.id.idAgregarVaca;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
     private TextView mTextViewResult;
@@ -221,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 System.out.println("en todos lados");
                 break;
             case R.id.idGenerarBCS:
-                i = new Intent(this,GenerarBCS.class);
+                i = new Intent(this, GenerarBCS.class);
                 startActivity(i);
                 System.out.println("en todos lados");
                 break;

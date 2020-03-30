@@ -12,16 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
         <activity android:name=".GenerarBCS"></activity>
-        <activity android:name=".ConsultarRodeo" />
+        <activity android:name=".Model.ConsultarRodeo"></activity>
+
         <activity
-            android:name=".AgregarVacaAlerta"
+            android:name=".Model.AgregarVacaAlerta"
             android:configChanges="screenSize|orientation"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ConsultarVaca" />
-        <activity android:name=".AgregarRodeoAlerta" />
+        <activity android:name=".Model.ConsultarVaca" />
+        <activity android:name=".Model.AgregarRodeoAlerta" />
         <activity
-            android:name=".ConfigServer"
+            android:name=".Utils.ConfigServer"
             android:configChanges="screenSize|orientation"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -31,14 +33,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AgregarRodeo"
+            android:name=".Model.AgregarRodeo"
             android:configChanges="screenSize|orientation"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".AgregarVaca"
+            android:name=".Model.AgregarVaca"
             android:configChanges="screenSize|orientation"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Model.MainActivity" />
     </application>
 
 </manifest>

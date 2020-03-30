@@ -1,4 +1,4 @@
-package com.example.tpfinalmoviles;
+package com.example.tpfinalmoviles.Utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.example.tpfinalmoviles.R;
+import com.example.tpfinalmoviles.Vaca;
+
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,11 +20,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> listVacas;
-    private HashMap<String, VacaRodeo> expandableListDetalles;
+    private HashMap<String, Vaca> expandableListDetalles;
 
     public CustomExpandableListAdapter(Context context,
                                        List<String> listTitulo,
-                                       HashMap<String, VacaRodeo> expandableListDetalles) {
+                                       HashMap<String, Vaca> expandableListDetalles) {
         this.context = context;
         this.listVacas = listTitulo;
         this.expandableListDetalles = expandableListDetalles;
@@ -30,7 +34,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final VacaRodeo vaca = (VacaRodeo) getChild(groupPosition, childPosition);
+        final Vaca vaca = (Vaca) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
 
@@ -50,21 +54,21 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         TextView etCC = convertView.findViewById(R.id.etCC);
 
         etFechaNacimiento.setText(vaca.getFechaNacimiento());
-        etPeso.setText(vaca.getPeso());
+        etPeso.setText(String.valueOf(vaca.getPeso()));
         etCantPartos.setText(vaca.getCantidadPartos());
         System.out.println("CATIDAD PARTOS" + (vaca.getCantidadPartos()));
         System.out.println("COWID " + (vaca.getCowBcsId()));
-        System.out.println("VERDAD : " + vaca.getCantidadPartos().equals(0));
-        if (vaca.getCantidadPartos().equals("0"))
+      //  System.out.println("VERDAD : " + vaca.getCantidadPartos().equals(0));
+        if (vaca.getCantidadPartos() == 0)
             etFechaParto.setText("--");
         else
             etFechaParto.setText(vaca.getUltimaFechaParto());
-        if( vaca.getCowBcsId().equals("0"))
+        if( vaca.getCowBcsId() == 0 )
             etFechaBSC.setText("--");
         else
             etFechaBSC.setText(vaca.getFechaBcs());
         etIdBSC.setText(vaca.getCowBcsId());
-        etCC.setText(vaca.getCc());
+        etCC.setText(String.valueOf(vaca.getCc()));
 
         Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
         convertView.startAnimation(animation);

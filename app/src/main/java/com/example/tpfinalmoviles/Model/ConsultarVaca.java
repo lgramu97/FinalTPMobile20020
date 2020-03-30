@@ -1,4 +1,4 @@
-package com.example.tpfinalmoviles;
+package com.example.tpfinalmoviles.Model;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +13,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+
+import com.example.tpfinalmoviles.PlaceHolder;
+import com.example.tpfinalmoviles.R;
+import com.example.tpfinalmoviles.Utils.ConfigOkHttp;
+import com.example.tpfinalmoviles.Utils.ConfigServer;
+import com.example.tpfinalmoviles.Vaca;
+
 
 public class ConsultarVaca extends AppCompatActivity {
     private Button bConsultarVaca;
@@ -95,71 +103,4 @@ public class ConsultarVaca extends AppCompatActivity {
 
     }
 
- /*   private class Tarea extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            final Long idV = Long.parseLong(idVaca.getText().toString());
-            System.out.println("errssor" + idV );
-            String url = getSharedPreferences(ConfigServer.URL_DETAILS, MODE_PRIVATE).getString("url", "") + "api/cow/" + idV + "/";
-            System.out.println("err: " + url );
-            ConfigOkHttp peticion = new ConfigOkHttp();
-            System.out.println("error");
-            final Callback callback = new Callback() {
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    System.out.println("error");
-
-                    //ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
-                    //runOnUiThread(new Runnable() {
-                    //   @Override
-                    //   public void run() {
-                    //        bCargar.setText("Cargar Rodeo");
-                    //        bCargar.setEnabled(true);
-                    //   }
-                    //});
-                }
-
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
-                    final String mMessage = response.body().string();
-                    // mMessage = response.body().string();
-                    System.out.println("a " + mMessage);
-
-                    //   ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            JSONObject json = null;
-                            try {
-                                json = new JSONObject(mMessage);
-                                electronicoView.setText(json.getString("electronicId"));
-                                manadaView.setText(json.getString("herdId"));
-                                fechaNacimientoView.setText(json.getString("fechaNacimiento"));
-                                pesoView.setText(json.getString("peso"));
-                                cantPartosView.setText(json.getString("cantidadPartos"));
-                                if (json.getString("ultimaFechaParto").equals("null"))
-                                    fechaUltParto.setText("--");
-                                else
-                                    fechaUltParto.setText(json.getString("ultimaFechaParto"));
-                                if (json.getString("fechaBcs").equals("null"))
-                                    fechaBscView.setText("--");
-                                else
-                                    fechaBscView.setText(json.getString("fechaBcs"));
-                                bscView.setText(json.getString("cowBcsId"));
-                                ccView.setText(json.getString("cc"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-
-                        }
-
-            };
-            System.out.println("Paso1");
-            peticion.get(url, callback);
-            return null;
-        }
-    }*/
 }
