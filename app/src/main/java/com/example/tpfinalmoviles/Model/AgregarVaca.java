@@ -7,27 +7,22 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.tpfinalmoviles.PlaceHolder;
 import com.example.tpfinalmoviles.R;
 import com.example.tpfinalmoviles.Utils.ConfigServer;
 import com.example.tpfinalmoviles.Utils.DatePickerFragment;
-import com.example.tpfinalmoviles.Vaca;
-
+import com.example.tpfinalmoviles.io.CowApiAdapter;
+import com.example.tpfinalmoviles.io.Response.Vaca;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class AgregarVaca extends AppCompatActivity {
@@ -157,12 +152,8 @@ public class AgregarVaca extends AppCompatActivity {
         final int rodeo = Integer.valueOf((etIdRodeo.getText().toString()));
 
         Vaca vaca = new Vaca(cantPartos,electronico,fechaNacimiento,rodeo,peso,fechaUltParto);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        PlaceHolder placeholder = retrofit.create(PlaceHolder.class);
-        Call<Vaca> call = placeholder.agregarVaca(vaca);
+
+        Call<Vaca> call = CowApiAdapter.getApiService().agregarVaca(vaca);
         call.enqueue(new Callback<Vaca>() {
             @Override
             public void onResponse(Call<Vaca> call, Response<Vaca> response) {

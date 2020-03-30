@@ -1,4 +1,4 @@
-package com.example.tpfinalmoviles.Model;
+package com.example.tpfinalmoviles;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.example.tpfinalmoviles.GenerarBCS;
+import com.example.tpfinalmoviles.Model.AgregarRodeo;
+import com.example.tpfinalmoviles.Model.AgregarRodeoAlerta;
+import com.example.tpfinalmoviles.Model.AgregarVaca;
+import com.example.tpfinalmoviles.Model.AgregarVacaAlerta;
+import com.example.tpfinalmoviles.Model.ConsultarRodeo;
+import com.example.tpfinalmoviles.Model.ConsultarVaca;
+import com.example.tpfinalmoviles.Model.GenerarBCS;
 import com.example.tpfinalmoviles.R;
 import com.example.tpfinalmoviles.Utils.ConfigOkHttp;
 import com.example.tpfinalmoviles.Utils.ConfigServer;
@@ -203,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 System.out.println("maaaiaaaaameeeeee");
                 break;
             case R.id.idConsultarRodeo:
-                i = new Intent(this,ConsultarRodeo.class);
+                i = new Intent(this, ConsultarRodeo.class);
                 startActivity(i);
                 System.out.println("en todos lados");
                 break;

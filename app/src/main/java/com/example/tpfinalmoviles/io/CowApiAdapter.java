@@ -1,6 +1,5 @@
 package com.example.tpfinalmoviles.io;
 
-import com.example.tpfinalmoviles.PlaceHolder;
 import com.example.tpfinalmoviles.Utils.ConfigServer;
 
 import retrofit2.Retrofit;
@@ -8,9 +7,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CowApiAdapter {
 
-    private static PlaceHolder API_SERVICE;
+    private static CowApiService API_SERVICE;
 
-    public static PlaceHolder getApiService() {
+    public static CowApiService getApiService() {
 
         // Creamos un interceptor y le indicamos el log level a usar
         /*HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -32,7 +31,7 @@ public class CowApiAdapter {
                     .addConverterFactory(GsonConverterFactory.create())
                     //.client(httpClient.build()) // <-- log level
                     .build();
-            API_SERVICE = retrofit.create(PlaceHolder.class);
+            API_SERVICE = retrofit.create(CowApiService.class);
         }
 
         return API_SERVICE;

@@ -8,18 +8,14 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tpfinalmoviles.R;
+import com.example.tpfinalmoviles.io.CowApiAdapter;
+import com.example.tpfinalmoviles.io.Response.Vaca;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-
-import com.example.tpfinalmoviles.PlaceHolder;
-import com.example.tpfinalmoviles.R;
-import com.example.tpfinalmoviles.Utils.ConfigOkHttp;
-import com.example.tpfinalmoviles.Utils.ConfigServer;
-import com.example.tpfinalmoviles.Vaca;
 
 
 public class ConsultarVaca extends AppCompatActivity {
@@ -63,13 +59,7 @@ public class ConsultarVaca extends AppCompatActivity {
 
     private void getVaca(){
         final int idV = Integer.parseInt(idVaca.getText().toString());
-        String url = getSharedPreferences(ConfigServer.URL_DETAILS, MODE_PRIVATE).getString("url", "") + "/api/";
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        PlaceHolder placeHolder = retrofit.create(PlaceHolder.class);
-        Call<Vaca> call = placeHolder.getCowID(idV);
+        Call<Vaca> call = CowApiAdapter.getApiService().getCowID(idV);
 
         call.enqueue(new Callback<Vaca>() {
             @Override

@@ -1,6 +1,5 @@
 package com.example.tpfinalmoviles.io.Response;
 
-import com.example.tpfinalmoviles.Vaca;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;

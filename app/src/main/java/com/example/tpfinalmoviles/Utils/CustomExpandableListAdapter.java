@@ -10,7 +10,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.example.tpfinalmoviles.R;
-import com.example.tpfinalmoviles.Vaca;
+import com.example.tpfinalmoviles.io.Response.Vaca;
 
 
 import java.util.HashMap;
@@ -55,7 +55,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         etFechaNacimiento.setText(vaca.getFechaNacimiento());
         etPeso.setText(String.valueOf(vaca.getPeso()));
-        etCantPartos.setText(vaca.getCantidadPartos());
+        etCantPartos.setText(String.valueOf(vaca.getCantidadPartos()));
         System.out.println("CATIDAD PARTOS" + (vaca.getCantidadPartos()));
         System.out.println("COWID " + (vaca.getCowBcsId()));
       //  System.out.println("VERDAD : " + vaca.getCantidadPartos().equals(0));
@@ -67,7 +67,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
             etFechaBSC.setText("--");
         else
             etFechaBSC.setText(vaca.getFechaBcs());
-        etIdBSC.setText(vaca.getCowBcsId());
+        etIdBSC.setText(String.valueOf(vaca.getCowBcsId()));
         etCC.setText(String.valueOf(vaca.getCc()));
 
         Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);

@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".GenerarBCS"></activity>
+        <activity android:name=".Model.GenerarBCS"></activity>
         <activity android:name=".Model.ConsultarRodeo"></activity>
 
         <activity
@@ -40,7 +40,7 @@
             android:name=".Model.AgregarVaca"
             android:configChanges="screenSize|orientation"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".Model.MainActivity" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

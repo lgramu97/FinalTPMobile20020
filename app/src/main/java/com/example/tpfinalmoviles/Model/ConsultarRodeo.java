@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tpfinalmoviles.R;
 import com.example.tpfinalmoviles.Utils.CustomExpandableListAdapter;
-import com.example.tpfinalmoviles.Vaca;
+import com.example.tpfinalmoviles.io.Response.Vaca;
 import com.example.tpfinalmoviles.io.CowApiAdapter;
 import com.example.tpfinalmoviles.io.Response.Rodeo;
 import com.google.gson.reflect.TypeToken;
@@ -82,8 +82,6 @@ public class ConsultarRodeo extends AppCompatActivity {
             public void onClick(View v) {
                 scrollView.setVisibility(View.VISIBLE);
                 iniciar();
-               // tarea = new Tarea();
-              //  tarea.execute();
             }
         });
         bRegresar.setOnClickListener(new View.OnClickListener() {
@@ -131,82 +129,6 @@ public class ConsultarRodeo extends AppCompatActivity {
             }
         });
     }
-/*
-    private class Tarea extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            final Long idR = Long.parseLong(idRodeo.getText().toString());
-            System.out.println("errssor" + idR );
-            String url = getSharedPreferences(ConfigServer.URL_DETAILS, MODE_PRIVATE).getString("url", "") + "api/herd/" + idR + "/";
-            System.out.println("err: " + url );
-            ConfigOkHttp peticion = new ConfigOkHttp();
-            System.out.println("error");
-            final Callback callback = new Callback() {
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    System.out.println("error");
-
-                    //ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
-                    //runOnUiThread(new Runnable() {
-                    //   @Override
-                    //   public void run() {
-                    //        bCargar.setText("Cargar Rodeo");
-                    //        bCargar.setEnabled(true);
-                    //   }
-                    //});
-                }
-
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
-                    final String mMessage = response.body().string();
-                    // mMessage = response.body().string();
-                    System.out.println("a " + mMessage);
-
-                    //   ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            JSONObject json = null;
-                            try {
-                                json = new JSONObject(mMessage);
-                                idLocation.setText(json.getString("location"));
-                                promedioBCS.setText(json.getString("bcsPromedio"));
-                                array = json.getJSONArray("cows");
-                                if ( array != null) {
-                                    System.out.println("IMPRIMIENDO ARRAY " + array.toString());
-                                    final Gson gson = new Gson();
-                                    final Type tipoListaVaca = new TypeToken<List<VacaRodeo>>(){}.getType();
-                                    final List<VacaRodeo> vacas = gson.fromJson(array.toString(), tipoListaVaca);
-                                    init(vacas);
-                                    expandableListView.setAdapter(expandableListAdapter);
-                                    expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-                                        @Override
-                                        public void onGroupExpand(int groupPosition) {
-                                            System.out.println("ENTROOO");
-                                            if(lastExpandedPosition != -1 && groupPosition != lastExpandedPosition){
-                                                expandableListView.collapseGroup(lastExpandedPosition);
-                                            }
-                                            lastExpandedPosition = groupPosition;
-                                        }
-                                    });
-
-                                }else
-                                    System.out.println("ES NULL");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-
-                }
-
-            };
-            System.out.println("Paso1");
-            peticion.get(url, callback);
-            return null;
-        }
-    }*/
 
     private void init(List<Vaca> vacas) {
         this.expandableListView = findViewById(R.id.elvList);

@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.tpfinalmoviles.Model.MainActivity;
+import com.example.tpfinalmoviles.MainActivity;
 import com.example.tpfinalmoviles.R;
 
 import java.io.BufferedReader;

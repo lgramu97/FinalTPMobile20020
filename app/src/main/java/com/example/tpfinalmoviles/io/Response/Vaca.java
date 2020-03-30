@@ -1,4 +1,4 @@
-package com.example.tpfinalmoviles;
+package com.example.tpfinalmoviles.io.Response;
 
 public class Vaca {
     private Integer id;

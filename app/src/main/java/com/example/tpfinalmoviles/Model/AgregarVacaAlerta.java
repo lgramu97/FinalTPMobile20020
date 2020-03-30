@@ -8,20 +8,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.tpfinalmoviles.PlaceHolder;
 import com.example.tpfinalmoviles.R;
-
 import com.example.tpfinalmoviles.Utils.ConfigServer;
-
-import com.example.tpfinalmoviles.VacaAlerta;
-
-
+import com.example.tpfinalmoviles.io.CowApiAdapter;
+import com.example.tpfinalmoviles.io.Response.VacaAlerta;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class AgregarVacaAlerta extends AppCompatActivity {
@@ -76,14 +70,8 @@ public class AgregarVacaAlerta extends AppCompatActivity {
         double maxBCS = Double.parseDouble(etBCSmax.getText().toString());
         double minBCS = Double.parseDouble((etBCSmin.getText().toString()));
 
-
         VacaAlerta vacaAlerta = new VacaAlerta(idVaca,maxBCS,minBCS);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        PlaceHolder placeholder = retrofit.create(PlaceHolder.class);
-        Call<VacaAlerta> call = placeholder.agregarVacaAlerta(vacaAlerta);
+        Call<VacaAlerta> call = CowApiAdapter.getApiService().agregarVacaAlerta(vacaAlerta);
         call.enqueue(new Callback<VacaAlerta>() {
             @Override
             public void onResponse(Call<VacaAlerta> call, Response<VacaAlerta> response) {
