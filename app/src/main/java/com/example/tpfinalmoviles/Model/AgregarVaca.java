@@ -136,7 +136,6 @@ public class AgregarVaca extends AppCompatActivity {
     }
 
     public void agregarVaca(){
-        String url = getSharedPreferences(ConfigServer.URL_DETAILS,MODE_PRIVATE).getString("url","")+"api/";
         int cantPartos = Integer.parseInt(etCantidadPartos.getText().toString());
         int electronico = Integer.parseInt(etIdElectronico.getText().toString());
         String fechaNacimiento = null;

@@ -106,8 +106,8 @@ public class ConsultarRodeo extends AppCompatActivity {
                     System.out.println("IDE RODEO: " + rodeo.getId());
                     System.out.println("IDE LOCATION: " + rodeo.getLocation());
                     System.out.println("IDE COWS: " + rodeo.getCows().size());
-                    idLocation.setText(rodeo.getId());
-                    promedioBCS.setText(rodeo.getBcsPromedio());
+                    idLocation.setText(String.valueOf(rodeo.getId()));
+                    promedioBCS.setText(String.valueOf(rodeo.getBcsPromedio()));
                     Type tipoListaVaca = new TypeToken<List<Vaca>>(){}.getType();
                     init(rodeo.getCows());
                     expandableListView.setAdapter(expandableListAdapter);

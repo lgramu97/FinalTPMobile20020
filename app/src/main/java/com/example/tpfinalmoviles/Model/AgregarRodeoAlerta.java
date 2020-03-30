@@ -1,37 +1,34 @@
 package com.example.tpfinalmoviles.Model;
 
-import android.os.AsyncTask;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tpfinalmoviles.R;
-import com.example.tpfinalmoviles.Utils.ConfigOkHttp;
-import com.example.tpfinalmoviles.Utils.ConfigServer;
-import com.example.tpfinalmoviles.Utils.ToastHandler;
 
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.tpfinalmoviles.io.CowApiAdapter;
+import com.example.tpfinalmoviles.io.Response.Rodeo;
+import com.example.tpfinalmoviles.io.Response.RodeoAlerta;
 
-import java.io.IOException;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AgregarRodeoAlerta extends AppCompatActivity {
 
     private static final String ERROR_POST = "Error al cargar alerta.";
     private static final String CORRECT_POST = "Alerta rodeo cargada con exito.";
 
-    private TextView etIdHerd, etBCSmax,etBCSmin, etInfo;
+    private EditText etIdHerd, etBCSmax,etBCSmin;
+    private TextView etInfo;
     private Button bCargar, bBack;
-    private Tarea tareaRodeoAlerta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +36,19 @@ public class AgregarRodeoAlerta extends AppCompatActivity {
         setContentView(R.layout.activity_agregar_rodeo_alerta);
         bCargar = (Button) findViewById(R.id.bCargar);
         bBack = (Button) findViewById(R.id.bBack);
-        etInfo = findViewById(R.id.etInfo);
-        etIdHerd = findViewById(R.id.etIdHerd);
-        etBCSmax = findViewById(R.id.etBCSmax);
-        etBCSmin = findViewById(R.id.etBCSmin);
+        etInfo = (TextView)findViewById(R.id.etInfo);
+        etIdHerd = (EditText)findViewById(R.id.etIdHerd);
+        etBCSmax = (EditText)findViewById(R.id.etBCSmax);
+        etBCSmin = (EditText)findViewById(R.id.etBCSmin);
 
         //No es necesario controlar que cargue algo en los campos, restricciones ya sobre base de datos.
         bCargar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("River 3 boca 1");
-                bCargar.setText("Enviando Datos");
-                bCargar.setEnabled(false);
-                tareaRodeoAlerta = new Tarea();
-                tareaRodeoAlerta.execute();
+          //      bCargar.setText("Enviando Datos");
+          //      bCargar.setEnabled(false);
+                if (esValido(etIdHerd) && esValido(etBCSmax) && esValido(etBCSmin))
+                    agregarRodeoAlerta();
             }
         });
 
@@ -64,6 +60,41 @@ public class AgregarRodeoAlerta extends AppCompatActivity {
         });
     }
 
+    private void agregarRodeoAlerta() {
+        int herdId = Integer.parseInt(etIdHerd.getText().toString());
+        double max = Double.valueOf(etBCSmax.getText().toString());
+        double min =  Double.valueOf(etBCSmin.getText().toString());
+
+        RodeoAlerta rodeoAlerta = new RodeoAlerta(herdId,max,min);
+
+        retrofit2.Call<RodeoAlerta> call = CowApiAdapter.getApiService().agregarRodeoAlerta(rodeoAlerta);
+        call.enqueue(new Callback<RodeoAlerta>() {
+            @Override
+            public void onResponse(retrofit2.Call<RodeoAlerta> call, Response<RodeoAlerta> response) {
+                if (!response.isSuccessful()) {
+                    System.out.println("Codigo " + response.code());
+                    return;
+                }
+                System.out.println("Codigo " + response.code());
+                RodeoAlerta rodeoAlertaResponse = response.body();
+                etInfo.setText("Id Rodeo Alerta: " + String.valueOf(rodeoAlertaResponse.getId()));
+            }
+
+            @Override
+            public void onFailure(Call<RodeoAlerta> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+    private boolean esValido(EditText editText) {
+        if (editText.getText().toString().length()>0)
+            return true;
+        return false;
+    }
+
+    /*
     private class Tarea extends AsyncTask<Void,Void,Void> {
 
         @Override
@@ -124,5 +155,5 @@ public class AgregarRodeoAlerta extends AppCompatActivity {
         }
 
 
-    }
+    }*/
 }
