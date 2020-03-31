@@ -16,7 +16,8 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:digits="0123456789"
+            android:inputType="number"
             android:layout_marginTop="20dp"
             android:ems="10"
             android:id="@+id/etIdHerd"
@@ -34,7 +35,8 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:digits="0123456789"
+            android:inputType="number"
             android:ems="10"
             android:id="@+id/etBCSmax"
             android:layout_below="@+id/etIdHerd"
@@ -51,7 +53,8 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:digits="0123456789"
+            android:inputType="number"
             android:ems="10"
             android:id="@+id/etBCSmin"
             android:layout_below="@+id/etBCSmax"

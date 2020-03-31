@@ -5,11 +5,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tpfinalmoviles.R;
-import com.example.tpfinalmoviles.Utils.ConfigServer;
+import com.example.tpfinalmoviles.Utils.ToastHandler;
 import com.example.tpfinalmoviles.io.CowApiAdapter;
 import com.example.tpfinalmoviles.io.Response.VacaAlerta;
 
@@ -19,8 +20,9 @@ import retrofit2.Response;
 
 
 public class AgregarVacaAlerta extends AppCompatActivity {
-    private static final String ERROR_POST = "Error al cargar alerta.";
-    private static final String CORRECT_POST = "Alerta Vaca cargada con exito.";
+    private static  String ERROR_POST = "Error al cargar alerta.";
+    private static  String ERROR_CONECTION = "Error de conexión.";
+    private static  String CORRECT_POST = "Alerta Vaca cargada con exito.";
 
     private EditText etIdVaca, etBCSmax,etBCSmin;
     private TextView etInfo;
@@ -41,11 +43,12 @@ public class AgregarVacaAlerta extends AppCompatActivity {
         bCargar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bCargar.setText("Enviando Datos");
-                bCargar.setEnabled(false);
-                if(esValido(etIdVaca) && esValido (etBCSmin) && esValido(etBCSmin))
+                if(esValido(etIdVaca) && esValido (etBCSmin) && esValido(etBCSmin)) {
+                    bCargar.setText("Enviando Datos");
+                    bCargar.setEnabled(false);
                     agregarVacaAlerta();
-
+                }else
+                    ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
             }
         });
 
@@ -65,7 +68,6 @@ public class AgregarVacaAlerta extends AppCompatActivity {
     }
 
     private void agregarVacaAlerta() {
-        String url = getSharedPreferences(ConfigServer.URL_DETAILS,MODE_PRIVATE).getString("url","")+"api/";
         int idVaca = Integer.parseInt(etIdVaca.getText().toString());
         double maxBCS = Double.parseDouble(etBCSmax.getText().toString());
         double minBCS = Double.parseDouble((etBCSmin.getText().toString()));
@@ -77,14 +79,23 @@ public class AgregarVacaAlerta extends AppCompatActivity {
             public void onResponse(Call<VacaAlerta> call, Response<VacaAlerta> response) {
                 if (!response.isSuccessful()) {
                     System.out.println("Codigo " + response.code());
+                    bCargar.setText("Cargar Alerta");
+                    bCargar.setEnabled(true);
+                    ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
                     return;
                 }
                 System.out.println("Codigo " + response.code());
                 VacaAlerta vacaResponseAlerta = response.body();
                 etInfo.setText("Id Vaca Alerta: " + String.valueOf(vacaResponseAlerta.getCowId()));
+                bCargar.setText("Cargar Alerta");
+                bCargar.setEnabled(true);
+                ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
             }
             @Override
             public void onFailure(Call<VacaAlerta> call, Throwable t) {
+                bCargar.setText("Cargar Alerta");
+                bCargar.setEnabled(true);
+                ToastHandler.get().showToast(getApplicationContext(), ERROR_CONECTION, Toast.LENGTH_SHORT);
             }
         });
     }

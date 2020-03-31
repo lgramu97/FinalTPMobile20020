@@ -6,10 +6,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tpfinalmoviles.R;
+import com.example.tpfinalmoviles.Utils.ToastHandler;
 import com.example.tpfinalmoviles.io.CowApiAdapter;
 import com.example.tpfinalmoviles.io.Response.Vaca;
 
@@ -19,6 +21,10 @@ import retrofit2.Response;
 
 
 public class ConsultarVaca extends AppCompatActivity {
+    private static String ERROR_POST = "Error al consultar el animal";
+    private static String CORRECT_POST = "Animal cargado con exito";
+    private static String ERROR_CONECTION = "Error de conexión";
+
     private Button bConsultarVaca;
     private Button bRegresar;
     private EditText idVaca;
@@ -45,8 +51,12 @@ public class ConsultarVaca extends AppCompatActivity {
         bConsultarVaca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getVaca();
-                scrollView.setVisibility(View.VISIBLE);
+                if (esValido(idVaca)){
+                    bConsultarVaca.setText("Enviando Datos");
+                    bConsultarVaca.setEnabled(false);
+                    getVaca();
+                }else
+                    ToastHandler.get().showToast(getApplicationContext(), "IdVaca Invalido", Toast.LENGTH_SHORT);
             }
         });
         bRegresar.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +65,12 @@ public class ConsultarVaca extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private boolean esValido(EditText editText) {
+        if (editText.getText().toString().length()>0)
+            return true;
+        return false;
     }
 
     private void getVaca(){
@@ -66,6 +82,9 @@ public class ConsultarVaca extends AppCompatActivity {
             public void onResponse(Call<Vaca> call, Response<Vaca> response) {
                 if (!response.isSuccessful()){
                     System.out.println("Codigo: " + response.code());
+                    bConsultarVaca.setText("Consultar Vaca");
+                    bConsultarVaca.setEnabled(true);
+                    ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
                     return;
                 }
                 Vaca vaca = response.body();
@@ -84,9 +103,16 @@ public class ConsultarVaca extends AppCompatActivity {
                     fechaBscView.setText(vaca.getFechaBcs().substring(0,10));
                 bscView.setText(String.valueOf(vaca.getCowBcsId()));
                 ccView.setText(String.valueOf(vaca.getCc()));
+                bConsultarVaca.setText("Consultar Vaca");
+                bConsultarVaca.setEnabled(true);
+                scrollView.setVisibility(View.VISIBLE);
+                ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
             }
             @Override
             public void onFailure(Call<Vaca> call, Throwable t) {
+                bConsultarVaca.setText("Consultar Vaca");
+                bConsultarVaca.setEnabled(true);
+                ToastHandler.get().showToast(getApplicationContext(), ERROR_CONECTION, Toast.LENGTH_SHORT);
                 System.out.println(t.getMessage());
             }
         });

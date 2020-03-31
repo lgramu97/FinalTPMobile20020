@@ -1,8 +1,6 @@
 package com.example.tpfinalmoviles.Model;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,20 +8,17 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tpfinalmoviles.R;
 import com.example.tpfinalmoviles.Utils.CustomExpandableListAdapter;
-import com.example.tpfinalmoviles.io.Response.Vaca;
+import com.example.tpfinalmoviles.Utils.ToastHandler;
 import com.example.tpfinalmoviles.io.CowApiAdapter;
 import com.example.tpfinalmoviles.io.Response.Rodeo;
-import com.google.gson.reflect.TypeToken;
+import com.example.tpfinalmoviles.io.Response.Vaca;
 
-
-import org.json.JSONArray;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,20 +28,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ConsultarRodeo extends AppCompatActivity {
+    private static String ERROR_POST = "Error al consultar el rodeo";
+    private static String CORRECT_POST = "Rodeo cargado con exito";
+    private static String ERROR_CONECTION = "Error de conexión";
+
+
     private Button bConsultarRodeo;
     private Button bRegresar;
     private ScrollView scrollView;
     private EditText idRodeo;
     private TextView idLocation,promedioBCS;
-   // private Tarea tarea;
-    private String sms;
 
     private ExpandableListView expandableListView;
     private ExpandableListAdapter expandableListAdapter;
-    private List<String> expandableListNombres;
-    private HashMap<String, Vaca> listaVacas;
     private int lastExpandedPosition = -1;
-    private JSONArray array;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,29 +54,18 @@ public class ConsultarRodeo extends AppCompatActivity {
         idLocation = findViewById(R.id.etIdLocation);
         promedioBCS = findViewById(R.id.etBCSPromedio);
 
-        bConsultarRodeo.setEnabled(false);
         //Hay que controlar que cargue algo en idRodeo, para activar boton consultar.
-        idRodeo.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override
-            public void afterTextChanged(Editable s) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int before, int count) {
-                if (count>0){ //count es cantidad de caracteres que tiene
-                    bConsultarRodeo.setEnabled(true);
-                }else{
-                    bConsultarRodeo.setEnabled(false);
-                }
-            }
-        });
 
         bConsultarRodeo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scrollView.setVisibility(View.VISIBLE);
-                iniciar();
+                if (esValido(idRodeo)){
+                    bConsultarRodeo.setText("Enviando Datos");
+                    bConsultarRodeo.setEnabled(false);
+                    consultarRodeo();
+                }else
+                    ToastHandler.get().showToast(getApplicationContext(), "IdRodeo Invalido", Toast.LENGTH_SHORT);
+
             }
         });
         bRegresar.setOnClickListener(new View.OnClickListener() {
@@ -90,12 +74,15 @@ public class ConsultarRodeo extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
     }
 
-    private void iniciar() {
+    private boolean esValido(EditText editText) {
+        if (editText.getText().toString().length()>0)
+            return true;
+        return false;
+    }
+
+    private void consultarRodeo() {
         final int idR = Integer.parseInt(idRodeo.getText().toString());
         Call<Rodeo> call = CowApiAdapter.getApiService().getRodeo(idR);
         call.enqueue(new Callback<Rodeo>() {
@@ -103,37 +90,40 @@ public class ConsultarRodeo extends AppCompatActivity {
             public void onResponse(Call<Rodeo> call, Response<Rodeo> response) {
                 if (response.isSuccessful()) {
                     Rodeo rodeo = response.body();
-                    System.out.println("IDE RODEO: " + rodeo.getId());
-                    System.out.println("IDE LOCATION: " + rodeo.getLocation());
-                    System.out.println("IDE COWS: " + rodeo.getCows().size());
                     idLocation.setText(String.valueOf(rodeo.getId()));
                     promedioBCS.setText(String.valueOf(rodeo.getBcsPromedio()));
-                    Type tipoListaVaca = new TypeToken<List<Vaca>>(){}.getType();
                     init(rodeo.getCows());
                     expandableListView.setAdapter(expandableListAdapter);
                     expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
                         @Override
                         public void onGroupExpand(int groupPosition) {
-                            System.out.println("ENTROOO");
                             if(lastExpandedPosition != -1 && groupPosition != lastExpandedPosition){
                                 expandableListView.collapseGroup(lastExpandedPosition);
                             }
                             lastExpandedPosition = groupPosition;
                         }
                     });
+                    scrollView.setVisibility(View.VISIBLE);
+                    ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
+                }else {
+                    ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
                 }
+                bConsultarRodeo.setText("Consultar Rodeo");
+                bConsultarRodeo.setEnabled(true);
             }
             @Override
             public void onFailure(Call<Rodeo> call, Throwable t) {
-                System.out.println("FALAA");
+                bConsultarRodeo.setText("Consultar Rodeo");
+                bConsultarRodeo.setEnabled(true);
+                ToastHandler.get().showToast(getApplicationContext(), ERROR_CONECTION, Toast.LENGTH_SHORT);
             }
         });
     }
 
     private void init(List<Vaca> vacas) {
         this.expandableListView = findViewById(R.id.elvList);
-        this.listaVacas = getVacas(vacas);
-        this.expandableListNombres = new ArrayList<>(listaVacas.keySet());
+        HashMap<String, Vaca> listaVacas = getVacas(vacas);
+        List<String> expandableListNombres = new ArrayList<>(listaVacas.keySet());
         this.expandableListAdapter = new CustomExpandableListAdapter(this,
                 expandableListNombres, listaVacas);
 

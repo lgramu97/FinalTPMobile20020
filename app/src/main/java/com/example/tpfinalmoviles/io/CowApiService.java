@@ -17,11 +17,13 @@ public interface CowApiService {
 
     @POST("herd")
     Call<Rodeo> agregarRodeo(@Body Rodeo rodeo);
+
     @GET("herd/{id}")
     Call<Rodeo> getRodeo(@Path("id") int idRodeo);
 
     @POST("herdAlert")
     Call<RodeoAlerta> agregarRodeoAlerta(@Body RodeoAlerta rodeoAlerta);
+
     @GET("cow/{id}")
     Call<Vaca> getCowID(@Path("id") int idVaca);
 

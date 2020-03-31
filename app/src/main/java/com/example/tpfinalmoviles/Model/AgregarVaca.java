@@ -7,12 +7,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tpfinalmoviles.R;
-import com.example.tpfinalmoviles.Utils.ConfigServer;
 import com.example.tpfinalmoviles.Utils.DatePickerFragment;
+import com.example.tpfinalmoviles.Utils.ToastHandler;
 import com.example.tpfinalmoviles.io.CowApiAdapter;
 import com.example.tpfinalmoviles.io.Response.Vaca;
 
@@ -31,8 +32,9 @@ public class AgregarVaca extends AppCompatActivity {
     private EditText etCantidadPartos, etIdElectronico, etFechaNacimiento, etIdPeso, etFechaUltParto, etIdRodeo;
     private TextView infoId;
 
-    private static final String ERROR_POST = "Error al cargar los datos del animal.";
-    private static final String CORRECT_POST = "Animal cargado con exito.";
+    private static  String ERROR_POST = "Error al cargar los datos del animal.";
+    private static  String CORRECT_POST = "Animal cargado con exito.";
+    private static  String ERROR_CONEXION = "Fallo de conexion con el servidor";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class AgregarVaca extends AppCompatActivity {
         etIdRodeo = (EditText) findViewById(R.id.idHerd);
         btnResetVaca = (Button) findViewById(R.id.idbtResetVaca);
         infoId = (TextView) findViewById(R.id.etInfo) ;
+
         btnResetVaca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +60,8 @@ public class AgregarVaca extends AppCompatActivity {
                 etIdElectronico.setText("");
                 etIdPeso.setText("");
                 etIdRodeo.setText("");
+                btnAgregarVaca.setText("Cargar Vaca");
+                btnAgregarVaca.setEnabled(true);
                 //Agregar el etinfo para reset el texto
             }
         });
@@ -67,6 +72,7 @@ public class AgregarVaca extends AppCompatActivity {
                 showDatePickerDialog(2);
             }
         });
+
         etFechaNacimiento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,16 +80,22 @@ public class AgregarVaca extends AppCompatActivity {
 
             }
         });
+
         btnAgregarVaca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (esValido(etCantidadPartos) && esValido(etIdElectronico) && esValido(etFechaNacimiento) && esValido(etIdPeso) &&
-                    esValidoFechaParto(etCantidadPartos,etFechaUltParto) && esValido(etIdRodeo))
-                        agregarVaca();
-
+                    esValidoFechaParto(etCantidadPartos,etFechaUltParto) && esValido(etIdRodeo)){
+                    btnAgregarVaca.setText("Enviando datos...");
+                    btnAgregarVaca.setEnabled(false);
+                    agregarVaca();
+                }
+                else
+                    ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
             }
         });
+
         btnRegresarVaca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,9 +107,14 @@ public class AgregarVaca extends AppCompatActivity {
     }
 
     private boolean esValidoFechaParto(EditText cantPartos, EditText etFechaUltParto) {
-        if (cantPartos.getText().toString() != null && Integer.parseInt(cantPartos.getText().toString())>0
-                && etFechaUltParto.getText().toString().length()>0)
+        System.out.println(etFechaUltParto.getText().toString().length() + " SEO ");
+        if (Integer.parseInt(cantPartos.getText().toString()) >= 0 && etFechaUltParto.getText().toString().length() >= 0) {
+            if (Integer.parseInt(cantPartos.getText().toString()) > 0 && etFechaUltParto.getText().toString().length() == 0)
+                return false;
+            else if (Integer.parseInt(cantPartos.getText().toString()) == 0)
+                etFechaUltParto.setText("");
             return true;
+        }
         etFechaUltParto.setText("");
         return false;
     }
@@ -141,8 +158,10 @@ public class AgregarVaca extends AppCompatActivity {
         String fechaNacimiento = null;
         String fechaUltParto = null;
         try {
+            System.out.println("FECHA PARTO" + etFechaUltParto.getText().toString());
+            if (!etFechaUltParto.getText().toString().equals(""))
+                fechaUltParto = formatoFecha(etFechaUltParto.getText().toString());
             fechaNacimiento = formatoFecha(etFechaNacimiento.getText().toString());
-            fechaUltParto = formatoFecha(etFechaUltParto.getText().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -158,16 +177,24 @@ public class AgregarVaca extends AppCompatActivity {
             public void onResponse(Call<Vaca> call, Response<Vaca> response) {
                 if (!response.isSuccessful()) {
                     System.out.println("Codigo " + response.code());
+                    btnAgregarVaca.setText("Cargar Vaca");
+                    btnAgregarVaca.setEnabled(true);
+                    ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
                     return;
                 }
                 System.out.println("Codigo " + response.code());
                 Vaca vacaResponse = response.body();
                 infoId.setText("Id Vaca: " + String.valueOf(vacaResponse.getId()));
+                btnAgregarVaca.setText("Cargar Vaca");
+                btnAgregarVaca.setEnabled(true);
+                ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
             }
 
             @Override
             public void onFailure(Call<Vaca> call, Throwable t) {
-
+                btnAgregarVaca.setText("Cargar Vaca");
+                btnAgregarVaca.setEnabled(true);
+                ToastHandler.get().showToast(getApplicationContext(), ERROR_CONEXION, Toast.LENGTH_SHORT);
             }
         });
     }
