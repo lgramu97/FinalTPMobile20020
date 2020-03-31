@@ -1,34 +1,24 @@
 package com.example.tpfinalmoviles.Model;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tpfinalmoviles.R;
-import com.example.tpfinalmoviles.Utils.ConfigOkHttp;
-import com.example.tpfinalmoviles.Utils.ConfigServer;
-import com.example.tpfinalmoviles.Utils.ToastHandler;
+import com.example.tpfinalmoviles.io.CowApiAdapter;
+import com.example.tpfinalmoviles.io.Response.Sesion;
 
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class GenerarBCS extends AppCompatActivity {
 
     private Button bConsultarVaca;
     private Button bRegresa;
-    private Tarea tarea;
     private Switch simpleSwitch;
 
     @Override
@@ -38,14 +28,12 @@ public class GenerarBCS extends AppCompatActivity {
         bRegresa = (Button) findViewById(R.id.bBack);
         simpleSwitch = (Switch) findViewById(R.id.simpleSwitch);
 
-        tarea = new Tarea();
         simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
 
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Boolean b = simpleSwitch.isChecked();
-                tarea.execute(simpleSwitch.isChecked());
-                System.out.println(b);
+                generarBCS(simpleSwitch.isChecked());
             }
         });
 //set the current state of a Switch
@@ -70,38 +58,24 @@ public class GenerarBCS extends AppCompatActivity {
         });*/
     }
 
-    private class Tarea extends AsyncTask<Boolean,Void,Void> {
+    private void generarBCS(boolean checked) {
+        Sesion sesion = new Sesion(checked);
 
-        @Override
-        protected Void doInBackground(Boolean... activo) {
-            String url = getSharedPreferences(ConfigServer.URL_DETAILS,MODE_PRIVATE).getString("url","")+"api/session/";
-            ConfigOkHttp peticion = new ConfigOkHttp();
-            final JSONObject jsonRodeo = new JSONObject();
-            try {
-                    jsonRodeo.put("enable", activo[0]);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+        Call<Sesion> call = CowApiAdapter.getApiService().generarSesion(sesion);
+        call.enqueue(new Callback<Sesion>() {
+            @Override
+            public void onResponse(Call<Sesion> call, Response<Sesion> response) {
+                if (!response.isSuccessful()) {
+                    System.out.println("Codigo " + response.code());
+                    return;
+                }
+                System.out.println("Codigo " + response.code());
             }
 
-            final Callback callback = new Callback() {
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    System.out.println("error");
-                    ToastHandler.get().showToast(getApplicationContext(), "error", Toast.LENGTH_SHORT);
+            @Override
+            public void onFailure(Call<Sesion> call, Throwable t) {
 
-                }
-
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
-                    final String mMessage = response.body().string();
-                    System.out.println("a " + mMessage);
-                    ToastHandler.get().showToast(getApplicationContext(), "PERFECT", Toast.LENGTH_SHORT);
-                }
-            };
-            peticion.post(url,jsonRodeo,callback);
-            return null;
-        }
+            }
+        });
     }
-
 }
