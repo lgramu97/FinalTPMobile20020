@@ -8,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CowApiAdapter {
 
     private static CowApiService API_SERVICE;
+    private static String baseUrl,ultimaIp = null;
 
     public static CowApiService getApiService() {
 
@@ -19,13 +20,14 @@ public class CowApiAdapter {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);*/
 
-        String baseUrl;
-        if ( ConfigServer.url != null)
+        if ( (ConfigServer.url != null) && (baseUrl==null || !baseUrl.equals(ConfigServer.url)))
              baseUrl = ConfigServer.url + "api/";
         else
             baseUrl = " http://localhost:8080/api/";
 
-        if (API_SERVICE == null) {
+        if (API_SERVICE == null || !ultimaIp.equals(baseUrl)) {
+            ultimaIp = baseUrl;
+            System.out.println("ENTRO " + baseUrl + "  -- " + ConfigServer.url);
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(GsonConverterFactory.create())

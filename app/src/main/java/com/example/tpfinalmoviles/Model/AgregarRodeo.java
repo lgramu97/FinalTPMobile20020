@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tpfinalmoviles.R;
@@ -57,6 +58,18 @@ public class AgregarRodeo extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("info",etInfo.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        etInfo.setText(savedInstanceState.getString("info"));
     }
 
     private boolean esValido(EditText editText) {

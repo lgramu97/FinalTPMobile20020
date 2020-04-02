@@ -62,6 +62,18 @@ public class AgregarRodeoAlerta extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onSaveInstanceState( Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("info",etInfo.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState( Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        etInfo.setText(savedInstanceState.getString("info"));
+    }
+
     private void agregarRodeoAlerta() {
         int herdId = Integer.parseInt(etIdHerd.getText().toString());
         double max = Double.valueOf(etBCSmax.getText().toString());

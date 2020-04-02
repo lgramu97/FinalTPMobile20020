@@ -32,13 +32,13 @@ public class ConsultarRodeo extends AppCompatActivity {
     private static String CORRECT_POST = "Rodeo cargado con exito";
     private static String ERROR_CONECTION = "Error de conexión";
 
-
     private Button bConsultarRodeo;
     private Button bRegresar;
     private ScrollView scrollView;
     private EditText idRodeo;
     private TextView idLocation,promedioBCS;
 
+    private ArrayList<Vaca> vacas;
     private ExpandableListView expandableListView;
     private ExpandableListAdapter expandableListAdapter;
     private int lastExpandedPosition = -1;
@@ -76,6 +76,29 @@ public class ConsultarRodeo extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("idlocation",idLocation.getText().toString());
+        outState.putString("promBSC",promedioBCS.getText().toString());
+        outState.putInt("visivility",scrollView.getVisibility());
+        System.out.println("VALOR VISIBLE" + scrollView.getVisibility());
+        outState.putParcelableArrayList("vacaList",  (ArrayList<Vaca>) vacas);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        idLocation.setText(savedInstanceState.getString("idlocation"));
+        promedioBCS.setText(savedInstanceState.getString("promBSC"));
+        int estado = savedInstanceState.getInt("visivility");
+        scrollView.setVisibility(estado);
+        System.out.println("VALOR VISIBLE DESPUES " + estado);
+        vacas = savedInstanceState.getParcelableArrayList("vacaList");
+        if (vacas != null)
+            init(vacas);
+    }
+
     private boolean esValido(EditText editText) {
         if (editText.getText().toString().length()>0)
             return true;
@@ -92,17 +115,9 @@ public class ConsultarRodeo extends AppCompatActivity {
                     Rodeo rodeo = response.body();
                     idLocation.setText(String.valueOf(rodeo.getId()));
                     promedioBCS.setText(String.valueOf(rodeo.getBcsPromedio()));
-                    init(rodeo.getCows());
-                    expandableListView.setAdapter(expandableListAdapter);
-                    expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-                        @Override
-                        public void onGroupExpand(int groupPosition) {
-                            if(lastExpandedPosition != -1 && groupPosition != lastExpandedPosition){
-                                expandableListView.collapseGroup(lastExpandedPosition);
-                            }
-                            lastExpandedPosition = groupPosition;
-                        }
-                    });
+                    vacas = rodeo.getCows();
+                    System.out.println("VACAS aTRODEN " + vacas.size());
+                    init(vacas);
                     scrollView.setVisibility(View.VISIBLE);
                     ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
                 }else {
@@ -126,7 +141,16 @@ public class ConsultarRodeo extends AppCompatActivity {
         List<String> expandableListNombres = new ArrayList<>(listaVacas.keySet());
         this.expandableListAdapter = new CustomExpandableListAdapter(this,
                 expandableListNombres, listaVacas);
-
+        expandableListView.setAdapter(expandableListAdapter);
+        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if(lastExpandedPosition != -1 && groupPosition != lastExpandedPosition){
+                    expandableListView.collapseGroup(lastExpandedPosition);
+                }
+                lastExpandedPosition = groupPosition;
+            }
+        });
     }
 
     private HashMap<String, Vaca> getVacas(List<Vaca> vacas) {

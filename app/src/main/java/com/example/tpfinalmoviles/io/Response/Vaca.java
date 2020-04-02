@@ -1,6 +1,9 @@
 package com.example.tpfinalmoviles.io.Response;
 
-public class Vaca {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Vaca implements Parcelable {
     private Integer id;
     private int cantidadPartos;
     private int electronicId;
@@ -20,6 +23,39 @@ public class Vaca {
         this.peso = peso;
         this.ultimaFechaParto = ultimaFechaParto;
     }
+
+    protected Vaca(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
+        cantidadPartos = in.readInt();
+        electronicId = in.readInt();
+        fechaNacimiento = in.readString();
+        herdId = in.readInt();
+        peso = in.readDouble();
+        ultimaFechaParto = in.readString();
+        fechaBcs = in.readString();
+        cowBcsId = in.readInt();
+        if (in.readByte() == 0) {
+            cc = null;
+        } else {
+            cc = in.readDouble();
+        }
+    }
+
+    public static final Creator<Vaca> CREATOR = new Creator<Vaca>() {
+        @Override
+        public Vaca createFromParcel(Parcel in) {
+            return new Vaca(in);
+        }
+
+        @Override
+        public Vaca[] newArray(int size) {
+            return new Vaca[size];
+        }
+    };
 
     public String getFechaBcs() {
         return fechaBcs;
@@ -59,5 +95,34 @@ public class Vaca {
 
     public String getUltimaFechaParto() {
         return ultimaFechaParto;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(id);
+        }
+        dest.writeInt(cantidadPartos);
+        dest.writeInt(electronicId);
+        dest.writeString(fechaNacimiento);
+        dest.writeInt(herdId);
+        dest.writeDouble(peso);
+        dest.writeString(ultimaFechaParto);
+        dest.writeString(fechaBcs);
+        dest.writeInt(cowBcsId);
+        if (cc == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(cc);
+        }
     }
 }
