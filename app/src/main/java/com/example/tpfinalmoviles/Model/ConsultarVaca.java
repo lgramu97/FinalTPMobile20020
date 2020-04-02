@@ -67,6 +67,49 @@ public class ConsultarVaca extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        System.out.println();
+        outState.putInt("visibilidad", scrollView.getVisibility());
+        outState.putString("cantPartos",cantPartosView.getText().toString());
+        outState.putString("idElectronic",electronicoView.getText().toString());
+        outState.putString("idRodeo",manadaView.getText().toString());
+        outState.putString("fechaNac",fechaNacimientoView.getText().toString());
+        outState.putString("pesoView",pesoView.getText().toString());
+        outState.putString("fechaUltPartos",fechaUltParto.getText().toString());
+        outState.putString("bscView",bscView.getText().toString());
+        outState.putString("fechaBsc",fechaBscView.getText().toString());
+        outState.putString("cc",ccView.getText().toString());
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        int visible = savedInstanceState.getInt("visibilidad");
+        scrollView.setVisibility(visible);
+        String cantPartos = savedInstanceState.getString("cantPartos");
+        String idElectronic = savedInstanceState.getString("idElectronic");
+        String idRodeo = savedInstanceState.getString("idRodeo");
+        String fechaNac = savedInstanceState.getString("fechaNac");
+        String peso = savedInstanceState.getString("pesoView");
+        String fechaUltPart = savedInstanceState.getString("fechaUltPartos");
+        String bscId = savedInstanceState.getString("bscView");
+        String fechaBsc = savedInstanceState.getString("fechaBsc");
+        String cc = savedInstanceState.getString("cc");
+
+        cantPartosView.setText(cantPartos);
+        ccView.setText(cc);
+        fechaBscView.setText(fechaBsc);
+        bscView.setText(bscId);
+        fechaUltParto.setText(fechaUltPart);
+        pesoView.setText(peso);
+        fechaNacimientoView.setText(fechaNac);
+        manadaView.setText(idRodeo);
+        electronicoView.setText(idElectronic);
+    }
+
     private boolean esValido(EditText editText) {
         if (editText.getText().toString().length()>0)
             return true;

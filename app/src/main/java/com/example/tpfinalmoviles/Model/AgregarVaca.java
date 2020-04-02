@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tpfinalmoviles.R;
@@ -104,6 +105,18 @@ public class AgregarVaca extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("info",infoId.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        savedInstanceState.get("info");
     }
 
     private boolean esValidoFechaParto(EditText cantPartos, EditText etFechaUltParto) {
@@ -203,6 +216,8 @@ public class AgregarVaca extends AppCompatActivity {
             String formatoDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(date);
             return formatoDate;
         }
+
+
 
 
 }

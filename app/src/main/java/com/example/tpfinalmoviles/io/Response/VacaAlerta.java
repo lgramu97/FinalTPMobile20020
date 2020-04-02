@@ -1,6 +1,7 @@
 package com.example.tpfinalmoviles.io.Response;
 
 public class VacaAlerta {
+    private int id;
     private int cowId;
     private double bcsThresholdMax;
     private double bcsThresholdMin;
@@ -9,6 +10,10 @@ public class VacaAlerta {
         this.cowId = cowId;
         this.bcsThresholdMax = bcsThresholdMax;
         this.bcsThresholdMin = bcsThresholdMin;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getCowId() {

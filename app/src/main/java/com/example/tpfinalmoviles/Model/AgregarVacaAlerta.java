@@ -86,7 +86,7 @@ public class AgregarVacaAlerta extends AppCompatActivity {
                 }
                 System.out.println("Codigo " + response.code());
                 VacaAlerta vacaResponseAlerta = response.body();
-                etInfo.setText("Id Vaca Alerta: " + String.valueOf(vacaResponseAlerta.getCowId()));
+                etInfo.setText("Id Vaca Alerta: " + String.valueOf(vacaResponseAlerta.getId()));
                 bCargar.setText("Cargar Alerta");
                 bCargar.setEnabled(true);
                 ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
