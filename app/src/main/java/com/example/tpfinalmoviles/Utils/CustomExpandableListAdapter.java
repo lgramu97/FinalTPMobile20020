@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.example.tpfinalmoviles.R;
 import com.example.tpfinalmoviles.io.Response.Vaca;
 
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -52,8 +51,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         TextView etIdBSC = convertView.findViewById(R.id.etIdBSC);
         TextView etFechaBSC = convertView.findViewById(R.id.etFechaBSC);
         TextView etCC = convertView.findViewById(R.id.etCC);
-
-        etFechaNacimiento.setText(vaca.getFechaNacimiento());
+        etFechaNacimiento.setText((vaca.getFechaNacimiento()).substring(0,10));
         etPeso.setText(String.valueOf(vaca.getPeso()));
         etCantPartos.setText(String.valueOf(vaca.getCantidadPartos()));
         System.out.println("CATIDAD PARTOS" + (vaca.getCantidadPartos()));
@@ -61,12 +59,13 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
       //  System.out.println("VERDAD : " + vaca.getCantidadPartos().equals(0));
         if (vaca.getCantidadPartos() == 0)
             etFechaParto.setText("--");
-        else
-            etFechaParto.setText(vaca.getUltimaFechaParto());
+        else{
+            etFechaParto.setText(vaca.getUltimaFechaParto().substring(0,10));
+        }
         if( vaca.getCowBcsId() == 0 )
             etFechaBSC.setText("--");
         else
-            etFechaBSC.setText(vaca.getFechaBcs());
+            etFechaBSC.setText(vaca.getFechaBcs().substring(0,10));
         etIdBSC.setText(String.valueOf(vaca.getCowBcsId()));
         etCC.setText(String.valueOf(vaca.getCc()));
 
