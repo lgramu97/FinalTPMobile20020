@@ -2,6 +2,8 @@ package com.example.tpfinalmoviles.io;
 
 import com.example.tpfinalmoviles.Utils.ConfigServer;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -13,12 +15,13 @@ public class CowApiAdapter {
     public static CowApiService getApiService() {
 
         // Creamos un interceptor y le indicamos el log level a usar
-        /*HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
 
         // Asociamos el interceptor a las peticiones
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(logging);*/
+        httpClient.addInterceptor(logging);
 
         if ( (ConfigServer.url != null) && (baseUrl==null || !baseUrl.equals(ConfigServer.url)))
              baseUrl = ConfigServer.url + "api/";
@@ -31,7 +34,7 @@ public class CowApiAdapter {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(GsonConverterFactory.create())
-                    //.client(httpClient.build()) // <-- log level
+                    .client(httpClient.build()) // <-- log level
                     .build();
             API_SERVICE = retrofit.create(CowApiService.class);
         }

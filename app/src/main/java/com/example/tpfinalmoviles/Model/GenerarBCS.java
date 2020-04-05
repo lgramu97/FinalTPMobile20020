@@ -65,27 +65,31 @@ public class GenerarBCS extends AppCompatActivity {
     }
 
     private void generarBCS(boolean checked) {
-        Sesion sesion = new Sesion(checked);
+        System.out.println("BOOL " + Boolean.toString(checked));
+        Sesion sesion = new Sesion(Boolean.toString(checked));
 
         Call<Sesion> call = CowApiAdapter.getApiService().generarSesion(sesion);
         call.enqueue(new Callback<Sesion>() {
             @Override
             public void onResponse(Call<Sesion> call, Response<Sesion> response) {
                 if (!response.isSuccessful()) {
-                    System.out.println("Codigo " + response.code());
+                    System.out.println("Codigo " + response.code() + "  " +  response.body());
                     ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
                     return;
                 }
                 ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
-                System.out.println("Codigo " + response.code());
+                System.out.println("Codigo " + response.code() + "  " +  response.body());
             }
 
             @Override
             public void onFailure(Call<Sesion> call, Throwable t) {
+                System.out.println("Codigo " + t.getCause() + "   " );
+                t.printStackTrace();
                 System.out.println("ON FAILUREEE " + t.getMessage());
                 System.out.println("BODY " + sesion.isEnable());
                 ToastHandler.get().showToast(getApplicationContext(), ERROR_CONECTION, Toast.LENGTH_SHORT);
             }
         });
     }
+
 }
