@@ -1,5 +1,6 @@
 package com.example.tpfinalmoviles.Model;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ public class GenerarBCS extends AppCompatActivity {
     private final String CORRECT_POST = "Generando indice masa corporal";
     private final String ERROR_POST = "Ups, algo anda mal";
     private final String ERROR_CONECTION = "Fallo la conexion con el servidor";
+    private final String ESTADO_SWITCH = "Estado de switch";
 
     private Switch simpleSwitch;
     private Button bRegrasar;
@@ -34,20 +36,42 @@ public class GenerarBCS extends AppCompatActivity {
         simpleSwitch = (Switch) findViewById(R.id.simpleSwitch);
         bRegrasar = (Button) findViewById(R.id.bBack);
 
+        SharedPreferences sharedPreferences = getSharedPreferences(ESTADO_SWITCH,MODE_PRIVATE);
+        boolean estado = sharedPreferences.getBoolean(ESTADO_SWITCH,false);
+        System.out.println("ESTADO " + estado);
+        if (estado){
+            simpleSwitch.setChecked(estado);
+        }
         bRegrasar.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                finish();
+               saveSharedPreference();
+               finish();
             }
         });
 
         simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                System.out.println("ENTRO A SIMPLE + " + isChecked);
                 generarBCS(simpleSwitch.isChecked());
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        saveSharedPreference();
+        finish();
+    }
+
+    private void saveSharedPreference(){
+        SharedPreferences sharedPreferences = getSharedPreferences(ESTADO_SWITCH,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(ESTADO_SWITCH,simpleSwitch.isChecked());
+        editor.commit();
+        System.out.println("VALOR EDITOR " + sharedPreferences.getBoolean(ESTADO_SWITCH,false));
     }
 
     @Override

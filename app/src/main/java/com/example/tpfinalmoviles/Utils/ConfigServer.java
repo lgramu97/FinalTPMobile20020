@@ -25,14 +25,14 @@ import java.io.OutputStreamWriter;
 
 public class ConfigServer extends AppCompatActivity {
 
-    public static final String NOMBRE_ARCHIVO = "configServer.txt";
-    public static final String EDITAR ="EDITAR IP/PORT";
-    public static final  String CARGAR = "CARGAR DATOS";
-    public static final String CARGA_EXITO ="Datos correctamente cargados";
-    public static final String CARGA_ERROR ="Archivo no encontrado";
-    public static final String GUARDADO_EXITO ="Datos correctamente almacenados";
-    public static final String GUARDADO_ERROR ="No fue posible almacenar los datos";
-    public static final String URL_DETAILS = "direccion url";
+    private final String NOMBRE_ARCHIVO = "configServer.txt";
+    private final String EDITAR ="EDITAR IP/PORT";
+    private final  String CARGAR = "CARGAR DATOS";
+    private final String CARGA_EXITO ="Datos correctamente cargados";
+    private final String CARGA_ERROR ="Archivo no encontrado";
+    private final String GUARDADO_EXITO ="Datos correctamente almacenados";
+    private final String GUARDADO_ERROR ="No fue posible almacenar los datos";
+    private final String URL_DETAILS = "direccion url";
     public static String url;
 
     private EditText etIP;
