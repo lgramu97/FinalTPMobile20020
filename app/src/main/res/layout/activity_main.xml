@@ -32,7 +32,7 @@
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:rowCount="4"
+            android:rowCount="5"
             android:columnCount="2"
             android:layout_margin="5dp"
             android:alignmentMode="alignMargins"
@@ -53,7 +53,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center">
-                    
+
                     <ImageView
                         android:layout_width="128dp"
                         android:layout_height="64dp"
@@ -61,11 +61,12 @@
                         android:layout_marginTop="24dp"
                         android:background="@color/white">
                     </ImageView>
-                    
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Agregar Vaca"
+                        android:gravity="center"
                         android:fontFamily="@font/googlesans_bold"
                         android:textSize="16sp"
                         android:textColor="@color/white"
@@ -105,6 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Agregar Rodeo"
+                        android:gravity="center"
                         android:fontFamily="@font/googlesans_bold"
                         android:textSize="16sp"
                         android:textColor="@color/white"
@@ -143,6 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Agregar Alerta Vaca"
+                        android:gravity="center"
                         android:fontFamily="@font/googlesans_bold"
                         android:textSize="16sp"
                         android:textColor="@color/white"
@@ -181,6 +184,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Agregar alerta Rodeo"
+                        android:gravity="center"
                         android:fontFamily="@font/googlesans_bold"
                         android:textSize="16sp"
                         android:textColor="@color/white"
@@ -219,6 +223,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Consultar Vaca"
+                        android:gravity="center"
                         android:fontFamily="@font/googlesans_bold"
                         android:textSize="16sp"
                         android:textColor="@color/white"
@@ -257,6 +262,87 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Consultar Rodeo"
+                        android:gravity="center"
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="20dp">
+                    </TextView>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/idGetAlertaVacas"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="5dp"
+                app:cardBackgroundColor="@color/grey"
+                android:layout_margin="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="128dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/cooperativismo"
+                        android:layout_marginTop="24dp"
+                        android:background="@color/white">
+                    </ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Obtener Alerta  Vacas"
+                        android:gravity="center"
+                        android:fontFamily="@font/googlesans_bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="20dp">
+                    </TextView>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/idGetAlertaRodeos"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="5dp"
+                app:cardBackgroundColor="@color/grey"
+                android:layout_margin="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="128dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/cooperativismo"
+                        android:layout_marginTop="24dp"
+                        android:background="@color/white">
+                    </ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Obtener Alerta Rodeo"
+                        android:gravity="center"
                         android:fontFamily="@font/googlesans_bold"
                         android:textSize="16sp"
                         android:textColor="@color/white"
@@ -295,6 +381,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Generar BSC"
+                        android:gravity="center"
                         android:fontFamily="@font/googlesans_bold"
                         android:textSize="16sp"
                         android:textColor="@color/white"
@@ -333,6 +420,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Mas info."
+                        android:gravity="center"
                         android:fontFamily="@font/googlesans_bold"
                         android:textSize="16sp"
                         android:textColor="@color/white"

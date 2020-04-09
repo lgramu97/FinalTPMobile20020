@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tpfinalmoviles.R;
-import com.example.tpfinalmoviles.Utils.CustomExpandableListAdapter;
+import com.example.tpfinalmoviles.Utils.CustomExpandableListAdapterVacas;
 import com.example.tpfinalmoviles.Utils.ToastHandler;
 import com.example.tpfinalmoviles.io.CowApiAdapter;
 import com.example.tpfinalmoviles.io.Response.Rodeo;
@@ -139,7 +139,7 @@ public class ConsultarRodeo extends AppCompatActivity {
         this.expandableListView = findViewById(R.id.elvList);
         HashMap<String, Vaca> listaVacas = getVacas(vacas);
         List<String> expandableListNombres = new ArrayList<>(listaVacas.keySet());
-        this.expandableListAdapter = new CustomExpandableListAdapter(this,
+        this.expandableListAdapter = new CustomExpandableListAdapterVacas(this,
                 expandableListNombres, listaVacas);
         expandableListView.setAdapter(expandableListAdapter);
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {

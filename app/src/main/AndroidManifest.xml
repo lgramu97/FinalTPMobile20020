@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".Model.GenerarBCS"></activity>
-        <activity android:name=".Model.ConsultarRodeo"></activity>
-
+        <activity android:name=".Model.ConsultarVacaAlerta"></activity>
+        <activity android:name=".Model.ConsultarRodeoAlerta" />
+        <activity android:name=".Model.GenerarBCS" />
+        <activity android:name=".Model.ConsultarRodeo" />
         <activity
             android:name=".Model.AgregarVacaAlerta"
             android:configChanges="screenSize|orientation"

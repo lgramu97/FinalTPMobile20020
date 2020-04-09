@@ -1,10 +1,14 @@
 package com.example.tpfinalmoviles.io;
 
+import com.example.tpfinalmoviles.io.Response.Rodeo;
 import com.example.tpfinalmoviles.io.Response.RodeoAlerta;
+import com.example.tpfinalmoviles.io.Response.RodeoAlertaFired;
 import com.example.tpfinalmoviles.io.Response.Sesion;
 import com.example.tpfinalmoviles.io.Response.Vaca;
 import com.example.tpfinalmoviles.io.Response.VacaAlerta;
-import com.example.tpfinalmoviles.io.Response.Rodeo;
+import com.example.tpfinalmoviles.io.Response.VacaAlertaFired;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -35,4 +39,10 @@ public interface CowApiService {
 
     @POST("session")
     Call<Sesion> generarSesion(@Body Sesion sesion);
+
+    @GET("herdFiredAlert")
+    Call<List<RodeoAlertaFired>> getHerdFiredAlert();
+
+    @GET("cowFiredAlert")
+    Call<List<VacaAlertaFired>> getCowFiredAlert();
 }

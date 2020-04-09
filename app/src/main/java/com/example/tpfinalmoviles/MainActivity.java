@@ -13,13 +13,16 @@ import com.example.tpfinalmoviles.Model.AgregarRodeoAlerta;
 import com.example.tpfinalmoviles.Model.AgregarVaca;
 import com.example.tpfinalmoviles.Model.AgregarVacaAlerta;
 import com.example.tpfinalmoviles.Model.ConsultarRodeo;
+import com.example.tpfinalmoviles.Model.ConsultarRodeoAlerta;
 import com.example.tpfinalmoviles.Model.ConsultarVaca;
+import com.example.tpfinalmoviles.Model.ConsultarVacaAlerta;
 import com.example.tpfinalmoviles.Model.GenerarBCS;
 import com.example.tpfinalmoviles.Utils.ToastHandler;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
     private CardView idAgregarVaca, idAgregarRodeo, idAgregarAlertaVaca, idAgregarAlertaRodeo
-                    ,idConsultarVaca, idConsultarRodeo, idGenerarBCS, idInfo;
+                    ,idConsultarVaca, idConsultarRodeo, idGenerarBCS, idInfo, idGetAlertaVacas
+                    ,idGetAlertaRodeos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         idConsultarRodeo = (CardView) findViewById(R.id.idConsultarRodeo);
         idGenerarBCS = (CardView) findViewById(R.id.idGenerarBCS);
         idInfo = (CardView) findViewById(R.id.idInfo);
+        idGetAlertaRodeos = (CardView) findViewById((R.id.idGetAlertaRodeos));
+        idGetAlertaVacas = (CardView) findViewById((R.id.idGetAlertaVacas));
 
         idAgregarVaca.setOnClickListener(this);
         idAgregarRodeo.setOnClickListener(this);
@@ -42,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         idConsultarRodeo.setOnClickListener(this);
         idGenerarBCS.setOnClickListener(this);
         idInfo.setOnClickListener(this);
+        idGetAlertaRodeos.setOnClickListener(this);
+        idGetAlertaVacas.setOnClickListener(this);
     }
 
     @Override
@@ -78,6 +85,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.idInfo:
                 ToastHandler.get().showToast(getApplicationContext(), "APP Desarrollado por: Gramuglia Lautaro - Stampone Juan Manuel", Toast.LENGTH_SHORT);
+                break;
+            case R.id.idGetAlertaRodeos:
+                i = new Intent(this, ConsultarRodeoAlerta.class);
+                startActivity(i);
+                break;
+            case R.id.idGetAlertaVacas:
+                i = new Intent(this, ConsultarVacaAlerta.class);
+                startActivity(i);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());

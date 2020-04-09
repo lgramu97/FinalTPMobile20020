@@ -7,25 +7,27 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.tpfinalmoviles.R;
-import com.example.tpfinalmoviles.io.Response.Vaca;
+import com.example.tpfinalmoviles.io.Response.Rodeo;
+import com.example.tpfinalmoviles.io.Response.RodeoAlertaFired;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
+public class CustomExpandableListAdapterAlertaRodeo extends BaseExpandableListAdapter {
 
     private Context context;
-    private List<String> listVacas;
-    private HashMap<String, Vaca> expandableListDetalles;
+    private List<String> listAlertas;
+    private HashMap<String, RodeoAlertaFired> expandableListDetalles;
 
-    public CustomExpandableListAdapter(Context context,
-                                       List<String> listTitulo,
-                                       HashMap<String, Vaca> expandableListDetalles) {
+    public CustomExpandableListAdapterAlertaRodeo(Context context,
+                                                 List<String> listTitulo,
+                                                 HashMap<String, RodeoAlertaFired> expandableListDetalles) {
         this.context = context;
-        this.listVacas = listTitulo;
+        this.listAlertas = listTitulo;
         this.expandableListDetalles = expandableListDetalles;
     }
 
@@ -33,7 +35,8 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final Vaca vaca = (Vaca) getChild(groupPosition, childPosition);
+        final RodeoAlertaFired alertaFired = (RodeoAlertaFired) getChild(groupPosition, childPosition);
+        Rodeo rodeo = alertaFired.getHerd();
 
         if (convertView == null) {
 
@@ -44,31 +47,28 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         }
 
-        TextView etFechaNacimiento = convertView.findViewById(R.id.etFechaNacimiento);
-        TextView etPeso = convertView.findViewById(R.id.etPeso);
-        TextView etCantPartos = convertView.findViewById(R.id.etCantPartos);
-        TextView etFechaParto = convertView.findViewById(R.id.etFechaParto);
-        TextView etIdBSC = convertView.findViewById(R.id.etIdBSC);
-        TextView etFechaBSC = convertView.findViewById(R.id.etFechaBSC);
-        TextView etCC = convertView.findViewById(R.id.etCC);
-        etFechaNacimiento.setText((vaca.getFechaNacimiento()).substring(0,10));
-        etPeso.setText(String.valueOf(vaca.getPeso()));
-        etCantPartos.setText(String.valueOf(vaca.getCantidadPartos()));
-        System.out.println("CATIDAD PARTOS" + (vaca.getCantidadPartos()));
-        System.out.println("COWID " + (vaca.getCowBcsId()));
-      //  System.out.println("VERDAD : " + vaca.getCantidadPartos().equals(0));
-        if (vaca.getCantidadPartos() == 0)
-            etFechaParto.setText("--");
-        else{
-            etFechaParto.setText(vaca.getUltimaFechaParto().substring(0,10));
-        }
-        if( vaca.getCowBcsId() == 0 )
-            etFechaBSC.setText("--");
-        else
-            etFechaBSC.setText(vaca.getFechaBcs().substring(0,10));
-        etIdBSC.setText(String.valueOf(vaca.getCowBcsId()));
-        etCC.setText(String.valueOf(vaca.getCc()));
 
+        TextView etHerdId = convertView.findViewById(R.id.etIdRodeo);
+        TextView etBcsFired = convertView.findViewById(R.id.etBcsFired);
+        TextView etFechaAlerta = convertView.findViewById(R.id.etFechaAlerta);
+        TextView etLocalidad = convertView.findViewById(R.id.etIdLocation);
+
+        LinearLayout lVacaInfo = convertView.findViewById(R.id.lVacaInfo);
+        LinearLayout lRodeoInfo = convertView.findViewById(R.id.lRodeoInfo);
+        LinearLayout lAlertasFired = convertView.findViewById(R.id.lAlertasFired);
+        LinearLayout lBCSPromedio = convertView.findViewById(R.id.lBCSPromedio);
+        LinearLayout lCowId = convertView.findViewById(R.id.lCowId);
+
+        lVacaInfo.setVisibility(View.GONE);
+        lBCSPromedio.setVisibility(View.GONE);
+        lCowId.setVisibility(View.GONE);
+        lRodeoInfo.setVisibility(View.VISIBLE);
+        lAlertasFired.setVisibility(View.VISIBLE);
+
+        etHerdId.setText(String.valueOf(rodeo.getId()));
+        etBcsFired.setText(String.valueOf(alertaFired.getBcs_fired()));
+        etFechaAlerta.setText(alertaFired.getFecha().substring(0,10));
+        etLocalidad.setText(rodeo.getLocation());
         Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
         convertView.startAnimation(animation);
         return convertView;
@@ -78,7 +78,6 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-
 
         String nombre = (String) getGroup(groupPosition);
 
@@ -100,7 +99,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
-        return this.listVacas.size();
+        return this.listAlertas.size();
     }
 
     @Override
@@ -110,12 +109,12 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this.listVacas.get(groupPosition);
+        return this.listAlertas.get(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return this.expandableListDetalles.get(this.listVacas.get(groupPosition));
+        return this.expandableListDetalles.get(this.listAlertas.get(groupPosition));
     }
 
     @Override

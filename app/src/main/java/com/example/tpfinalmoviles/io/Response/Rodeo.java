@@ -6,11 +6,12 @@ import java.util.ArrayList;
 
 public class Rodeo {
 
+    @SerializedName("id")
     private int id;
 
     private String location;
 
-    private double bcsPromedio;
+    private Double bcsPromedio;
 
     @SerializedName("cows")
     private ArrayList<Vaca> cows = null;
@@ -31,7 +32,7 @@ public class Rodeo {
         this.location = location;
     }
 
-    public double getBcsPromedio() {
+    public Double getBcsPromedio() {
         return bcsPromedio;
     }
 
