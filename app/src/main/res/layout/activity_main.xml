@@ -294,9 +294,9 @@
                     <ImageView
                         android:layout_width="128dp"
                         android:layout_height="64dp"
-                        android:src="@drawable/cooperativismo"
+                        android:src="@drawable/cow_alert"
                         android:layout_marginTop="24dp"
-                        android:background="@color/white">
+                        android:background="@color/grey">
                     </ImageView>
 
                     <TextView
@@ -333,7 +333,7 @@
                     <ImageView
                         android:layout_width="128dp"
                         android:layout_height="64dp"
-                        android:src="@drawable/cooperativismo"
+                        android:src="@drawable/cow_alert3"
                         android:layout_marginTop="24dp"
                         android:background="@color/white">
                     </ImageView>

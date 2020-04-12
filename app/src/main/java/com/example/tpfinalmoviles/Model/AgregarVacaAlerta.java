@@ -78,13 +78,11 @@ public class AgregarVacaAlerta extends AppCompatActivity {
             @Override
             public void onResponse(Call<VacaAlerta> call, Response<VacaAlerta> response) {
                 if (!response.isSuccessful()) {
-                    System.out.println("Codigo " + response.code());
                     bCargar.setText("Cargar Alerta");
                     bCargar.setEnabled(true);
                     ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
                     return;
                 }
-                System.out.println("Codigo " + response.code());
                 VacaAlerta vacaResponseAlerta = response.body();
                 etInfo.setText("Id Vaca Alerta: " + String.valueOf(vacaResponseAlerta.getId()));
                 bCargar.setText("Cargar Alerta");

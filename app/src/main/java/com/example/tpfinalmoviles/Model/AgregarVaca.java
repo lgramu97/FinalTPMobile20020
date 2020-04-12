@@ -28,7 +28,6 @@ import retrofit2.Response;
 
 
 public class AgregarVaca extends AppCompatActivity {
-
     private Button btnAgregarVaca, btnRegresarVaca, btnResetVaca;
     private EditText etCantidadPartos, etIdElectronico, etFechaNacimiento, etIdPeso, etFechaUltParto, etIdRodeo;
     private TextView infoId;
@@ -63,7 +62,6 @@ public class AgregarVaca extends AppCompatActivity {
                 etIdRodeo.setText("");
                 btnAgregarVaca.setText("Cargar Vaca");
                 btnAgregarVaca.setEnabled(true);
-                //Agregar el etinfo para reset el texto
             }
         });
 
@@ -78,14 +76,12 @@ public class AgregarVaca extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog(1);
-
             }
         });
 
         btnAgregarVaca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (esValido(etCantidadPartos) && esValido(etIdElectronico) && esValido(etFechaNacimiento) && esValido(etIdPeso) &&
                     esValidoFechaParto(etCantidadPartos,etFechaUltParto) && esValido(etIdRodeo)){
                     btnAgregarVaca.setText("Enviando datos...");
@@ -96,7 +92,6 @@ public class AgregarVaca extends AppCompatActivity {
                     ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
             }
         });
-
         btnRegresarVaca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +115,6 @@ public class AgregarVaca extends AppCompatActivity {
     }
 
     private boolean esValidoFechaParto(EditText cantPartos, EditText etFechaUltParto) {
-        System.out.println(etFechaUltParto.getText().toString().length() + " SEO ");
         if (Integer.parseInt(cantPartos.getText().toString()) >= 0 && etFechaUltParto.getText().toString().length() >= 0) {
             if (Integer.parseInt(cantPartos.getText().toString()) > 0 && etFechaUltParto.getText().toString().length() == 0)
                 return false;
@@ -140,7 +134,6 @@ public class AgregarVaca extends AppCompatActivity {
 
     private void showDatePickerDialog(int p) {
         if (p == 1) {
-
             DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -149,7 +142,6 @@ public class AgregarVaca extends AppCompatActivity {
                     etFechaNacimiento.setText(selectedDate);
                 }
             });
-
             newFragment.show(getSupportFragmentManager(), "datePicker");
         } else {
             DatePickerFragment nf = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
@@ -160,7 +152,6 @@ public class AgregarVaca extends AppCompatActivity {
                     etFechaUltParto.setText(selectedDate);
                 }
             });
-
             nf.show(getSupportFragmentManager(), "datePicker");
         }
     }
@@ -171,31 +162,26 @@ public class AgregarVaca extends AppCompatActivity {
         String fechaNacimiento = null;
         String fechaUltParto = null;
         try {
-            System.out.println("FECHA PARTO" + etFechaUltParto.getText().toString());
             if (!etFechaUltParto.getText().toString().equals(""))
                 fechaUltParto = formatoFecha(etFechaUltParto.getText().toString());
             fechaNacimiento = formatoFecha(etFechaNacimiento.getText().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         final double peso = Double.valueOf((etIdPeso.getText().toString()));
         final int rodeo = Integer.valueOf((etIdRodeo.getText().toString()));
-
         Vaca vaca = new Vaca(cantPartos,electronico,fechaNacimiento,rodeo,peso,fechaUltParto);
-
         Call<Vaca> call = CowApiAdapter.getApiService().agregarVaca(vaca);
         call.enqueue(new Callback<Vaca>() {
+
             @Override
             public void onResponse(Call<Vaca> call, Response<Vaca> response) {
                 if (!response.isSuccessful()) {
-                    System.out.println("Codigo " + response.code());
                     btnAgregarVaca.setText("Cargar Vaca");
                     btnAgregarVaca.setEnabled(true);
                     ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
                     return;
                 }
-                System.out.println("Codigo " + response.code());
                 Vaca vacaResponse = response.body();
                 infoId.setText("Id Vaca: " + String.valueOf(vacaResponse.getId()));
                 btnAgregarVaca.setText("Cargar Vaca");

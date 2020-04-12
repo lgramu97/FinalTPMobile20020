@@ -34,7 +34,6 @@ public class GenerarBCS extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(ESTADO_SWITCH,MODE_PRIVATE);
         boolean estado = sharedPreferences.getBoolean(ESTADO_SWITCH,false);
-        System.out.println("ESTADO " + estado);
         if (estado){
             simpleSwitch.setChecked(estado);
         }
@@ -49,7 +48,6 @@ public class GenerarBCS extends AppCompatActivity {
         simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                System.out.println("ENTRO A SIMPLE + " + isChecked);
                 generarBCS(simpleSwitch.isChecked());
             }
         });
@@ -67,27 +65,22 @@ public class GenerarBCS extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(ESTADO_SWITCH,simpleSwitch.isChecked());
         editor.commit();
-        System.out.println("VALOR EDITOR " + sharedPreferences.getBoolean(ESTADO_SWITCH,false));
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        System.out.println("VALOR RESTORE:  " + simpleSwitch.isChecked());
         outState.putBoolean("sesion", simpleSwitch.isChecked());
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        System.out.println("VALOR RESTORE:  " + savedInstanceState.getBoolean("sesion"));
         generarBCS(savedInstanceState.getBoolean("sesion"));
     }
 
     private void generarBCS(boolean checked) {
-        System.out.println("BOOL " + Boolean.toString(checked));
         Sesion sesion = new Sesion(Boolean.toString(checked));
-
         Call<Sesion> call = CowApiAdapter.getApiService().generarSesion(sesion);
         call.enqueue(new Callback<Sesion>() {
             @Override

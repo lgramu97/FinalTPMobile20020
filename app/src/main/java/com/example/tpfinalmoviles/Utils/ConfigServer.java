@@ -27,7 +27,7 @@ public class ConfigServer extends AppCompatActivity {
 
     private final String NOMBRE_ARCHIVO = "configServer.txt";
     private final String EDITAR ="EDITAR IP/PORT";
-    private final  String CARGAR = "CARGAR DATOS";
+    private final String CARGAR = "CARGAR DATOS";
     private final String CARGA_EXITO ="Datos correctamente cargados";
     private final String CARGA_ERROR ="Archivo no encontrado";
     private final String GUARDADO_EXITO ="Datos correctamente almacenados";

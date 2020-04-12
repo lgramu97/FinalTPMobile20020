@@ -70,7 +70,7 @@ public class ConsultarVaca extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        System.out.println();
+        System.out.println("");
         outState.putInt("visibilidad", scrollView.getVisibility());
         outState.putString("cantPartos",cantPartosView.getText().toString());
         outState.putString("idElectronic",electronicoView.getText().toString());
@@ -81,7 +81,6 @@ public class ConsultarVaca extends AppCompatActivity {
         outState.putString("bscView",bscView.getText().toString());
         outState.putString("fechaBsc",fechaBscView.getText().toString());
         outState.putString("cc",ccView.getText().toString());
-
     }
 
     @Override
@@ -124,7 +123,6 @@ public class ConsultarVaca extends AppCompatActivity {
             @Override
             public void onResponse(Call<Vaca> call, Response<Vaca> response) {
                 if (!response.isSuccessful()){
-                    System.out.println("Codigo: " + response.code());
                     bConsultarVaca.setText("Consultar Vaca");
                     bConsultarVaca.setEnabled(true);
                     ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
@@ -156,7 +154,6 @@ public class ConsultarVaca extends AppCompatActivity {
                 bConsultarVaca.setText("Consultar Vaca");
                 bConsultarVaca.setEnabled(true);
                 ToastHandler.get().showToast(getApplicationContext(), ERROR_CONECTION, Toast.LENGTH_SHORT);
-                System.out.println(t.getMessage());
             }
         });
 

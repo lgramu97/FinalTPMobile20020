@@ -9,7 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 
+import com.example.tpfinalmoviles.MainActivity;
 import com.example.tpfinalmoviles.R;
 import com.example.tpfinalmoviles.Utils.CustomExpandableListAdapterAlertaRodeo;
 import com.example.tpfinalmoviles.Utils.ToastHandler;
@@ -44,12 +46,16 @@ public class ConsultarRodeoAlerta extends AppCompatActivity {
         btnRegresar = findViewById(R.id.idbBackRodeo);
         lExpandable = findViewById(R.id.lExpandable);
 
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.cancel(MainActivity.NOTIFICACION_ID);
+
         btnAgregarRodeo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btnAgregarRodeo.setText("Recibiendo datos");
                 btnAgregarRodeo.setEnabled(false);
                 consultarAlertaRodeo();
+                desplegarNotificacion();
             }
         });
         btnRegresar.setOnClickListener(new View.OnClickListener() {
@@ -68,9 +74,12 @@ public class ConsultarRodeoAlerta extends AppCompatActivity {
             public void onResponse(Call<List<RodeoAlertaFired>> call, Response<List<RodeoAlertaFired>> response) {
                 if(response.isSuccessful()){
                     List<RodeoAlertaFired> rodeoAlerta = response.body();
-                    init(rodeoAlerta);
-                    lExpandable.setVisibility(View.VISIBLE);
-                    ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
+                    if (rodeoAlerta.size()>0 ) {
+                        init(rodeoAlerta);
+                        lExpandable.setVisibility(View.VISIBLE);
+                        ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
+                    }else
+                        ToastHandler.get().showToast(getApplicationContext(), "No hay alertas que mostrar", Toast.LENGTH_SHORT);
                 }else {
                     ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
                 }
@@ -107,14 +116,14 @@ public class ConsultarRodeoAlerta extends AppCompatActivity {
 
     private HashMap<String, RodeoAlertaFired> getVacas(List<RodeoAlertaFired> alertas) {
         HashMap<String, RodeoAlertaFired> listaV = new HashMap<>();
-        System.out.println("SIZE " + alertas.size());
         for (RodeoAlertaFired v:alertas){
             listaV.put("Alerta "+ v.getId(), v);
-            if (v.getHerd() == null)
-                System.out.println("ETNROO");
         }
-        System.out.println("SIZE2 " + listaV.size());
         return listaV;
+    }
+
+    private void desplegarNotificacion(){
+
     }
 
 }

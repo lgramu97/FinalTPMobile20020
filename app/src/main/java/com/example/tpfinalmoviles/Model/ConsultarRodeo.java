@@ -55,7 +55,6 @@ public class ConsultarRodeo extends AppCompatActivity {
         promedioBCS = findViewById(R.id.etBCSPromedio);
 
         //Hay que controlar que cargue algo en idRodeo, para activar boton consultar.
-
         bConsultarRodeo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +81,6 @@ public class ConsultarRodeo extends AppCompatActivity {
         outState.putString("idlocation",idLocation.getText().toString());
         outState.putString("promBSC",promedioBCS.getText().toString());
         outState.putInt("visivility",scrollView.getVisibility());
-        System.out.println("VALOR VISIBLE" + scrollView.getVisibility());
         outState.putParcelableArrayList("vacaList",  (ArrayList<Vaca>) vacas);
     }
 
@@ -93,7 +91,6 @@ public class ConsultarRodeo extends AppCompatActivity {
         promedioBCS.setText(savedInstanceState.getString("promBSC"));
         int estado = savedInstanceState.getInt("visivility");
         scrollView.setVisibility(estado);
-        System.out.println("VALOR VISIBLE DESPUES " + estado);
         vacas = savedInstanceState.getParcelableArrayList("vacaList");
         if (vacas != null)
             init(vacas);
@@ -116,7 +113,6 @@ public class ConsultarRodeo extends AppCompatActivity {
                     idLocation.setText(String.valueOf(rodeo.getId()));
                     promedioBCS.setText(String.valueOf(rodeo.getBcsPromedio()));
                     vacas = rodeo.getCows();
-                    System.out.println("VACAS aTRODEN " + vacas.size());
                     init(vacas);
                     scrollView.setVisibility(View.VISIBLE);
                     ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
@@ -155,11 +151,9 @@ public class ConsultarRodeo extends AppCompatActivity {
 
     private HashMap<String, Vaca> getVacas(List<Vaca> vacas) {
         HashMap<String, Vaca> listaV = new HashMap<>();
-        System.out.println("SIZE " + vacas.size());
         for (Vaca v:vacas){
             listaV.put("Vaca "+ v.getId(), v);
         }
-        System.out.println("SIZE2 " + listaV.size());
         return listaV;
     }
 

@@ -26,7 +26,6 @@ public class AgregarRodeo extends AppCompatActivity {
     private static String CORRECT_POST = "Rodeo cargado con exito";
     private static String ERROR_CONECTION = "Error de conexión";
 
-
     private EditText etLocalidad;
     private TextView etInfo;
     private Button bCargar, bBack;
@@ -81,21 +80,17 @@ public class AgregarRodeo extends AppCompatActivity {
 
     private void agregarRodeo() {
         String localidad = etLocalidad.getText().toString();
-
         Rodeo rodeo = new Rodeo(localidad);
-
         Call<Rodeo> call = CowApiAdapter.getApiService().agregarRodeo(rodeo);
         call.enqueue(new Callback<Rodeo>() {
             @Override
             public void onResponse(Call<Rodeo> call, Response<Rodeo> response) {
                 if (!response.isSuccessful()) {
-                    System.out.println("Codigo " + response.code());
                     ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
                     bCargar.setText("CARGAR RODEO");
                     bCargar.setEnabled(true);
                     return;
                 }
-                System.out.println("Codigo " + response.code());
                 Rodeo rodeoResponse = response.body();
                 etInfo.setText("Id Rodeo: " + String.valueOf(rodeoResponse.getId()));
                 bCargar.setText("CARGAR RODEO");

@@ -1,12 +1,20 @@
 package com.example.tpfinalmoviles;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.example.tpfinalmoviles.Model.AgregarRodeo;
 import com.example.tpfinalmoviles.Model.AgregarRodeoAlerta;
@@ -19,10 +27,16 @@ import com.example.tpfinalmoviles.Model.ConsultarVacaAlerta;
 import com.example.tpfinalmoviles.Model.GenerarBCS;
 import com.example.tpfinalmoviles.Utils.ToastHandler;
 
+import static android.app.Notification.DEFAULT_SOUND;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
     private CardView idAgregarVaca, idAgregarRodeo, idAgregarAlertaVaca, idAgregarAlertaRodeo
                     ,idConsultarVaca, idConsultarRodeo, idGenerarBCS, idInfo, idGetAlertaVacas
                     ,idGetAlertaRodeos;
+    private PendingIntent siPendingIntent;
+    private PendingIntent noPendingIntent;
+    private final static String CHANNEL_ID = "NOTIFICACION";
+    public final static int NOTIFICACION_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +63,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         idInfo.setOnClickListener(this);
         idGetAlertaRodeos.setOnClickListener(this);
         idGetAlertaVacas.setOnClickListener(this);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.cancel(NOTIFICACION_ID);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override
@@ -84,19 +106,65 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
                 break;
             case R.id.idInfo:
-                ToastHandler.get().showToast(getApplicationContext(), "APP Desarrollado por: Gramuglia Lautaro - Stampone Juan Manuel", Toast.LENGTH_SHORT);
+                ToastHandler.get().showToast(getApplicationContext(), "APP Desarrollada por: Gramuglia Lautaro - Stampone Juan Manuel", Toast.LENGTH_SHORT);
                 break;
             case R.id.idGetAlertaRodeos:
-                i = new Intent(this, ConsultarRodeoAlerta.class);
-                startActivity(i);
+                siPendingIntent(ConsultarRodeoAlerta.class);
+                noPendingIntent();
+                createNotificationChannel();
+                createNotification("Alerta/s Rodeo/s");
                 break;
             case R.id.idGetAlertaVacas:
-                i = new Intent(this, ConsultarVacaAlerta.class);
-                startActivity(i);
+                siPendingIntent(ConsultarVacaAlerta.class);
+                noPendingIntent();
+                createNotificationChannel();
+                createNotification("Alerta/s Vaca/s");
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
+    }
+
+    private void siPendingIntent(Class clase){
+        Intent intent = new Intent(this, clase);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(clase);
+        stackBuilder.addNextIntent(intent);
+        siPendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    private void noPendingIntent(){
+        Intent intent = new Intent(this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(intent);
+        noPendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Notificacion Alertas";
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+    }
+
+    private void createNotification(String titulo){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_warning_black_24dp);
+        builder.setContentTitle(titulo);
+        builder.setContentText("¿Quiere ver en detalle las alertas activas?");
+        builder.setColor(Color.BLUE);
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setLights(Color.MAGENTA, 1000, 1000);
+        builder.setVibrate(new long[]{1000});
+        builder.setDefaults(DEFAULT_SOUND);
+        builder.setContentIntent(siPendingIntent);
+        builder.addAction(R.drawable.ic_warning_black_24dp, "Si", siPendingIntent);
+        builder.addAction(R.drawable.ic_warning_black_24dp, "No", noPendingIntent);
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
     }
 }
 

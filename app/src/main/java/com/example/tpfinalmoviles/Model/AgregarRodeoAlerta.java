@@ -20,7 +20,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AgregarRodeoAlerta extends AppCompatActivity {
-
     private static  String ERROR_POST = "Error al cargar alerta.";
     private static  String ERROR_CONECTION = "Error de conexión.";
     private static  String CORRECT_POST = "Alerta rodeo cargada con exito.";
@@ -78,21 +77,17 @@ public class AgregarRodeoAlerta extends AppCompatActivity {
         int herdId = Integer.parseInt(etIdHerd.getText().toString());
         double max = Double.valueOf(etBCSmax.getText().toString());
         double min =  Double.valueOf(etBCSmin.getText().toString());
-
         RodeoAlerta rodeoAlerta = new RodeoAlerta(herdId,max,min);
-
         retrofit2.Call<RodeoAlerta> call = CowApiAdapter.getApiService().agregarRodeoAlerta(rodeoAlerta);
         call.enqueue(new Callback<RodeoAlerta>() {
             @Override
             public void onResponse(retrofit2.Call<RodeoAlerta> call, Response<RodeoAlerta> response) {
                 if (!response.isSuccessful()) {
-                    System.out.println("Codigo " + response.code());
                     bCargar.setText("Cargar Alerta");
                     bCargar.setEnabled(true);
                     ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
                     return;
                 }
-                System.out.println("Codigo " + response.code());
                 RodeoAlerta rodeoAlertaResponse = response.body();
                 etInfo.setText("Id Rodeo Alerta: " + String.valueOf(rodeoAlertaResponse.getId()));
                 bCargar.setText("Cargar Alerta");

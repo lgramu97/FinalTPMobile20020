@@ -9,7 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 
+import com.example.tpfinalmoviles.MainActivity;
 import com.example.tpfinalmoviles.R;
 import com.example.tpfinalmoviles.Utils.CustomExpandableListAdapterAlertaVaca;
 import com.example.tpfinalmoviles.Utils.ToastHandler;
@@ -43,7 +45,8 @@ public class ConsultarVacaAlerta extends AppCompatActivity {
         btnAgregarVaca = findViewById(R.id.idConsultarVaca);
         btnRegresarVaca = findViewById(R.id.idbBackVaca);
         lExpandable = findViewById(R.id.lExpandable);
-
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.cancel(MainActivity.NOTIFICACION_ID);
         btnAgregarVaca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,10 +71,13 @@ public class ConsultarVacaAlerta extends AppCompatActivity {
             public void onResponse(Call<List<VacaAlertaFired>> call, Response<List<VacaAlertaFired>> response) {
                 if(response.isSuccessful()){
                     List<VacaAlertaFired> vacaAlerta = response.body();
-                    init(vacaAlerta);
-                    lExpandable.setVisibility(View.VISIBLE);
-                    ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
-            }else {
+                    if(vacaAlerta.size()>0){
+                        init(vacaAlerta);
+                        lExpandable.setVisibility(View.VISIBLE);
+                        ToastHandler.get().showToast(getApplicationContext(), CORRECT_POST, Toast.LENGTH_SHORT);
+                    }else
+                        ToastHandler.get().showToast(getApplicationContext(), "No hay alertas que mostrar", Toast.LENGTH_SHORT);
+                }else {
                 ToastHandler.get().showToast(getApplicationContext(), ERROR_POST, Toast.LENGTH_SHORT);
             }
                 btnAgregarVaca.setText("Consultar Alertas Vacas");
@@ -107,11 +113,9 @@ public class ConsultarVacaAlerta extends AppCompatActivity {
 
     private HashMap<String, VacaAlertaFired> getVacas(List<VacaAlertaFired> alertas) {
         HashMap<String, VacaAlertaFired> listaV = new HashMap<>();
-        System.out.println("SIZE " + alertas.size());
         for (VacaAlertaFired v:alertas){
             listaV.put("Alerta "+ v.getId(), v);
         }
-        System.out.println("SIZE2 " + listaV.size());
         return listaV;
     }
 
