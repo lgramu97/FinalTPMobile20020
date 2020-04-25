@@ -29,7 +29,7 @@ public class ConsultarVaca extends AppCompatActivity {
     private Button bRegresar;
     private EditText idVaca;
     private ScrollView scrollView;
-    private TextView electronicoView,manadaView,fechaNacimientoView,pesoView,cantPartosView,fechaUltParto,bscView,fechaBscView,ccView;
+    private TextView electronicoView,manadaView,fechaNacimientoView,pesoView,cantPartosView,fechaUltParto,bcsView,fechaBcsView,ccView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,8 @@ public class ConsultarVaca extends AppCompatActivity {
         pesoView = (TextView) findViewById(R.id.etPeso);
         cantPartosView = (TextView) findViewById(R.id.etCantPartos);
         fechaUltParto = (TextView) findViewById(R.id.etFechaParto);
-        bscView = (TextView) findViewById(R.id.etIdBSC);
-        fechaBscView = (TextView) findViewById(R.id.etFechaBSC);
+        bcsView = (TextView) findViewById(R.id.etIdBCS);
+        fechaBcsView = (TextView) findViewById(R.id.etFechaBCS);
         ccView = (TextView) findViewById(R.id.etCC);
         bConsultarVaca.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,8 +78,8 @@ public class ConsultarVaca extends AppCompatActivity {
         outState.putString("fechaNac",fechaNacimientoView.getText().toString());
         outState.putString("pesoView",pesoView.getText().toString());
         outState.putString("fechaUltPartos",fechaUltParto.getText().toString());
-        outState.putString("bscView",bscView.getText().toString());
-        outState.putString("fechaBsc",fechaBscView.getText().toString());
+        outState.putString("bscView",bcsView.getText().toString());
+        outState.putString("fechaBcs",fechaBcsView.getText().toString());
         outState.putString("cc",ccView.getText().toString());
     }
 
@@ -94,14 +94,14 @@ public class ConsultarVaca extends AppCompatActivity {
         String fechaNac = savedInstanceState.getString("fechaNac");
         String peso = savedInstanceState.getString("pesoView");
         String fechaUltPart = savedInstanceState.getString("fechaUltPartos");
-        String bscId = savedInstanceState.getString("bscView");
-        String fechaBsc = savedInstanceState.getString("fechaBsc");
+        String bcsId = savedInstanceState.getString("bscView");
+        String fechaBcs = savedInstanceState.getString("fechaBcs");
         String cc = savedInstanceState.getString("cc");
 
         cantPartosView.setText(cantPartos);
         ccView.setText(cc);
-        fechaBscView.setText(fechaBsc);
-        bscView.setText(bscId);
+        fechaBcsView.setText(fechaBcs);
+        bcsView.setText(bcsId);
         fechaUltParto.setText(fechaUltPart);
         pesoView.setText(peso);
         fechaNacimientoView.setText(fechaNac);
@@ -139,10 +139,10 @@ public class ConsultarVaca extends AppCompatActivity {
                 else
                     fechaUltParto.setText(vaca.getUltimaFechaParto().substring(0,10));
                 if (vaca.getFechaBcs() == null)
-                    fechaBscView.setText("--");
+                    fechaBcsView.setText("--");
                 else
-                    fechaBscView.setText(vaca.getFechaBcs().substring(0,10));
-                bscView.setText(String.valueOf(vaca.getCowBcsId()));
+                    fechaBcsView.setText(vaca.getFechaBcs().substring(0,10));
+                bcsView.setText(String.valueOf(vaca.getCowBcsId()));
                 ccView.setText(String.valueOf(vaca.getCc()));
                 bConsultarVaca.setText("Consultar Vaca");
                 bConsultarVaca.setEnabled(true);

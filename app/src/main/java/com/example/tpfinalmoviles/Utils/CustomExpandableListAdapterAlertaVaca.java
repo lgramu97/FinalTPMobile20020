@@ -50,8 +50,8 @@ public class CustomExpandableListAdapterAlertaVaca extends BaseExpandableListAda
         TextView etPeso = convertView.findViewById(R.id.etPeso);
         TextView etCantPartos = convertView.findViewById(R.id.etCantPartos);
         TextView etFechaParto = convertView.findViewById(R.id.etFechaParto);
-        TextView etIdBSC = convertView.findViewById(R.id.etIdBSC);
-        TextView etFechaBSC = convertView.findViewById(R.id.etFechaBSC);
+        TextView etIdBSC = convertView.findViewById(R.id.etIdBCS);
+        TextView etFechaBSC = convertView.findViewById(R.id.etFechaBCS);
         TextView etIDElectronico = convertView.findViewById(R.id.etIdElectronico);
         TextView etCC = convertView.findViewById(R.id.etCC);
         TextView etCowId = convertView.findViewById(R.id.etCowId);
