@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.tpfinalmoviles.R;
@@ -52,6 +53,13 @@ public class CustomExpandableListAdapterVacas extends BaseExpandableListAdapter 
         TextView etFechaBSC = convertView.findViewById(R.id.etFechaBSC);
         TextView etCC = convertView.findViewById(R.id.etCC);
         TextView etIDElectronico = convertView.findViewById(R.id.etIdElectronico);
+        LinearLayout lCowId = convertView.findViewById(R.id.lCowId);
+        LinearLayout lbcsFired = convertView.findViewById(R.id.lbcsFired);
+        LinearLayout lFechaAlerta = convertView.findViewById(R.id.lFechaAlerta);
+
+        lCowId.setVisibility(View.GONE);
+        lbcsFired.setVisibility(View.GONE);
+        lFechaAlerta.setVisibility(View.GONE);
 
         etFechaNacimiento.setText((vaca.getFechaNacimiento()).substring(0,10));
         etIDElectronico.setText(String.valueOf(vaca.getElectronicId()));

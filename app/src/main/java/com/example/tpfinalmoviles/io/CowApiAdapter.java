@@ -13,7 +13,6 @@ public class CowApiAdapter {
     private static String baseUrl,ultimaIp = null;
 
     public static CowApiService getApiService() {
-
         // Creamos un interceptor y le indicamos el log level a usar
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -37,7 +36,6 @@ public class CowApiAdapter {
                     .build();
             API_SERVICE = retrofit.create(CowApiService.class);
         }
-
         return API_SERVICE;
     }
 

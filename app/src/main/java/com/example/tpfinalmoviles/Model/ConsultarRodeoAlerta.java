@@ -55,7 +55,6 @@ public class ConsultarRodeoAlerta extends AppCompatActivity {
                 btnAgregarRodeo.setText("Recibiendo datos");
                 btnAgregarRodeo.setEnabled(false);
                 consultarAlertaRodeo();
-                desplegarNotificacion();
             }
         });
         btnRegresar.setOnClickListener(new View.OnClickListener() {
@@ -120,10 +119,6 @@ public class ConsultarRodeoAlerta extends AppCompatActivity {
             listaV.put("Alerta "+ v.getId(), v);
         }
         return listaV;
-    }
-
-    private void desplegarNotificacion(){
-
     }
 
 }
