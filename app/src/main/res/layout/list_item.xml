@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="center_horizontal"
-                android:text="Id BSC: "
+                android:text="Id BCS: "
                 android:fontFamily="@font/googlesans_bold"
                 android:textColor="@color/white" />
 
@@ -186,7 +186,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="center_horizontal"
-                android:text=" Fecha BSC: "
+                android:text=" Fecha BCS: "
                 android:fontFamily="@font/googlesans_bold"
                 android:textColor="@color/white" />
 
@@ -352,6 +352,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lbcsFired"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -378,6 +379,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lFechaAlerta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
