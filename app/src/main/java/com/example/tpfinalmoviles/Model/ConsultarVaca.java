@@ -78,7 +78,7 @@ public class ConsultarVaca extends AppCompatActivity {
         outState.putString("fechaNac",fechaNacimientoView.getText().toString());
         outState.putString("pesoView",pesoView.getText().toString());
         outState.putString("fechaUltPartos",fechaUltParto.getText().toString());
-        outState.putString("bscView",bcsView.getText().toString());
+        outState.putString("bcsView",bcsView.getText().toString());
         outState.putString("fechaBcs",fechaBcsView.getText().toString());
         outState.putString("cc",ccView.getText().toString());
     }
@@ -94,7 +94,7 @@ public class ConsultarVaca extends AppCompatActivity {
         String fechaNac = savedInstanceState.getString("fechaNac");
         String peso = savedInstanceState.getString("pesoView");
         String fechaUltPart = savedInstanceState.getString("fechaUltPartos");
-        String bcsId = savedInstanceState.getString("bscView");
+        String bcsId = savedInstanceState.getString("bcsView");
         String fechaBcs = savedInstanceState.getString("fechaBcs");
         String cc = savedInstanceState.getString("cc");
 

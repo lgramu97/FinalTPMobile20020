@@ -149,7 +149,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/lIdBSC"
+            android:id="@+id/lIdBCS"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -176,7 +176,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/lFechaBSC"
+            android:id="@+id/lFechaBCS"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

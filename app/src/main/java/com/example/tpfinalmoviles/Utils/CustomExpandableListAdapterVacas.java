@@ -49,8 +49,8 @@ public class CustomExpandableListAdapterVacas extends BaseExpandableListAdapter 
         TextView etPeso = convertView.findViewById(R.id.etPeso);
         TextView etCantPartos = convertView.findViewById(R.id.etCantPartos);
         TextView etFechaParto = convertView.findViewById(R.id.etFechaParto);
-        TextView etIdBSC = convertView.findViewById(R.id.etIdBCS);
-        TextView etFechaBSC = convertView.findViewById(R.id.etFechaBCS);
+        TextView etIdBCS = convertView.findViewById(R.id.etIdBCS);
+        TextView etFechaBCS = convertView.findViewById(R.id.etFechaBCS);
         TextView etCC = convertView.findViewById(R.id.etCC);
         TextView etIDElectronico = convertView.findViewById(R.id.etIdElectronico);
         LinearLayout lCowId = convertView.findViewById(R.id.lCowId);
@@ -74,10 +74,10 @@ public class CustomExpandableListAdapterVacas extends BaseExpandableListAdapter 
             etFechaParto.setText(vaca.getUltimaFechaParto().substring(0,10));
         }
         if( vaca.getCowBcsId() == 0 )
-            etFechaBSC.setText("--");
+            etFechaBCS.setText("--");
         else
-            etFechaBSC.setText(vaca.getFechaBcs().substring(0,10));
-        etIdBSC.setText(String.valueOf(vaca.getCowBcsId()));
+            etFechaBCS.setText(vaca.getFechaBcs().substring(0,10));
+        etIdBCS.setText(String.valueOf(vaca.getCowBcsId()));
         etCC.setText(String.valueOf(vaca.getCc()));
 
         Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);

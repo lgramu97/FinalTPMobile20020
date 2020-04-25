@@ -50,8 +50,8 @@ public class CustomExpandableListAdapterAlertaVaca extends BaseExpandableListAda
         TextView etPeso = convertView.findViewById(R.id.etPeso);
         TextView etCantPartos = convertView.findViewById(R.id.etCantPartos);
         TextView etFechaParto = convertView.findViewById(R.id.etFechaParto);
-        TextView etIdBSC = convertView.findViewById(R.id.etIdBCS);
-        TextView etFechaBSC = convertView.findViewById(R.id.etFechaBCS);
+        TextView etIdBCS = convertView.findViewById(R.id.etIdBCS);
+        TextView etFechaBCS = convertView.findViewById(R.id.etFechaBCS);
         TextView etIDElectronico = convertView.findViewById(R.id.etIdElectronico);
         TextView etCC = convertView.findViewById(R.id.etCC);
         TextView etCowId = convertView.findViewById(R.id.etCowId);
@@ -59,12 +59,12 @@ public class CustomExpandableListAdapterAlertaVaca extends BaseExpandableListAda
         TextView etFechaAlerta = convertView.findViewById(R.id.etFechaAlerta);
 
         LinearLayout lAlertasFired = convertView.findViewById(R.id.lAlertasFired);
-        LinearLayout lIdBSC = convertView.findViewById(R.id.lIdBSC);
-        LinearLayout lFechaBSC = convertView.findViewById(R.id.lFechaBSC);
+        LinearLayout lIdBCS = convertView.findViewById(R.id.lIdBCS);
+        LinearLayout lFechaBCS = convertView.findViewById(R.id.lFechaBCS);
         LinearLayout lCC = convertView.findViewById(R.id.lCC);
         lAlertasFired.setVisibility(View.VISIBLE);
-        lIdBSC.setVisibility(View.GONE);
-        lFechaBSC.setVisibility(View.GONE);
+        lIdBCS.setVisibility(View.GONE);
+        lFechaBCS.setVisibility(View.GONE);
         lCC.setVisibility(View.GONE);
         etFechaNacimiento.setText((vaca.getFechaNacimiento()).substring(0,10));
         etPeso.setText(String.valueOf(vaca.getPeso()));
@@ -78,11 +78,11 @@ public class CustomExpandableListAdapterAlertaVaca extends BaseExpandableListAda
             etFechaParto.setText(vaca.getUltimaFechaParto().substring(0,10));
         }
         if( vaca.getCowBcsId() == 0 )
-            etFechaBSC.setText("--");
+            etFechaBCS.setText("--");
         else
-            etFechaBSC.setText(vaca.getFechaBcs().substring(0,10));
+            etFechaBCS.setText(vaca.getFechaBcs().substring(0,10));
         etIDElectronico.setText(String.valueOf(vaca.getElectronicId()));
-        etIdBSC.setText(String.valueOf(vaca.getCowBcsId()));
+        etIdBCS.setText(String.valueOf(vaca.getCowBcsId()));
         etCC.setText(String.valueOf(vaca.getCc()));
         etCowId.setText(String.valueOf(vaca.getId()));
         etBcsFired.setText(String.valueOf(alertaFired.getBcs_fired()));

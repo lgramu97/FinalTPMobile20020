@@ -79,7 +79,7 @@ public class ConsultarRodeo extends AppCompatActivity {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("idlocation",idLocation.getText().toString());
-        outState.putString("promBSC",promedioBCS.getText().toString());
+        outState.putString("promBCS",promedioBCS.getText().toString());
         outState.putInt("visivility",scrollView.getVisibility());
         outState.putParcelableArrayList("vacaList",  (ArrayList<Vaca>) vacas);
     }
@@ -88,7 +88,7 @@ public class ConsultarRodeo extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         idLocation.setText(savedInstanceState.getString("idlocation"));
-        promedioBCS.setText(savedInstanceState.getString("promBSC"));
+        promedioBCS.setText(savedInstanceState.getString("promBCS"));
         int estado = savedInstanceState.getInt("visivility");
         scrollView.setVisibility(estado);
         vacas = savedInstanceState.getParcelableArrayList("vacaList");
