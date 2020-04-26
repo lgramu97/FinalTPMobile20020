@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ public class ConsultarRodeo extends AppCompatActivity {
     private ScrollView scrollView;
     private EditText idRodeo;
     private TextView idLocation,promedioBCS;
+    private LinearLayout lIdLocation, lBCSPromedio;
 
     private ArrayList<Vaca> vacas;
     private ExpandableListView expandableListView;
@@ -53,6 +55,11 @@ public class ConsultarRodeo extends AppCompatActivity {
         idRodeo = findViewById(R.id.idRodeoB);
         idLocation = findViewById(R.id.etIdLocation);
         promedioBCS = findViewById(R.id.etBCSPromedio);
+        lIdLocation = findViewById(R.id.lIdLocation);
+        lBCSPromedio = findViewById(R.id.lBCSPromedio);
+
+        lIdLocation.setVisibility(View.GONE);
+        lBCSPromedio.setVisibility(View.GONE);
 
         //Hay que controlar que cargue algo en idRodeo, para activar boton consultar.
         bConsultarRodeo.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +128,8 @@ public class ConsultarRodeo extends AppCompatActivity {
                 }
                 bConsultarRodeo.setText("Consultar Rodeo");
                 bConsultarRodeo.setEnabled(true);
+                lIdLocation.setVisibility(View.VISIBLE);
+                lBCSPromedio.setVisibility(View.VISIBLE);
             }
             @Override
             public void onFailure(Call<Rodeo> call, Throwable t) {

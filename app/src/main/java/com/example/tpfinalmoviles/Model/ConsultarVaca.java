@@ -118,7 +118,6 @@ public class ConsultarVaca extends AppCompatActivity {
     private void getVaca(){
         final int idV = Integer.parseInt(idVaca.getText().toString());
         Call<Vaca> call = CowApiAdapter.getApiService().getCowID(idV);
-
         call.enqueue(new Callback<Vaca>() {
             @Override
             public void onResponse(Call<Vaca> call, Response<Vaca> response) {
